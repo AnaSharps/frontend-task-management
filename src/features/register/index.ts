@@ -4,8 +4,8 @@ import { sendVerify } from "../verifyEmailSent";
 import { registerSelf } from "./registerAPI";
 
 export const registrationSuccess = (response: any): AppThunk => (dispatch) => {
-	dispatch(changeLoading("passed"));
 	dispatch(sendVerify());
+	dispatch(changeLoading("passed"));
 };
 
 export const registrationFailed = (error: any): AppThunk => (dispatch) => {
