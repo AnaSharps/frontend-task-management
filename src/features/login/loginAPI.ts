@@ -14,3 +14,7 @@ export function loginWithCredentials(credentials: {
 		{ withCredentials: true }
 	);
 }
+
+export function logout() {
+	return axios.get(`${host}/api/logout`, { withCredentials: true });
+}
