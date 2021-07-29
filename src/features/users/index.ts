@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
+import { AppThunk, RootState } from "../../app/store";
+import { changeLoading } from "../loading";
+import { getUsers } from "./UsersAPI";
 
 export type User = {
-	id: number;
+	name: string;
 	email: string;
 	createdBy: string;
 	deletedBy: string;
@@ -10,17 +13,42 @@ export type User = {
 };
 
 export interface UserListState {
-	users: User[] | null;
+	users: User[];
 	display: number;
 	ofset: number;
-	search: string | null;
+	search: string;
 }
 
 const initialState: UserListState = {
-	users: null,
+	users: [],
 	display: 10,
 	ofset: 0,
-	search: null,
+	search: "",
+};
+
+export const getUsersSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("passed"));
+	dispatch(setUsers(response.data.users));
+};
+
+export const getUsersFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const getUsersInit = (): AppThunk => async (dispatch, getState) => {
+	const search = selectSearch(getState());
+	const display = selectDisplayNum(getState());
+	const ofset = selectOffset(getState());
+	const deleted = false;
+	dispatch(changeLoading("processing"));
+	const credentials = { search, display, ofset, deleted };
+	try {
+		const response = await getUsers({ ...credentials });
+		dispatch(getUsersSuccess(response));
+	} catch (error) {
+		dispatch(getUsersFailed(error));
+	}
 };
 
 export const userListSlice = createSlice({
