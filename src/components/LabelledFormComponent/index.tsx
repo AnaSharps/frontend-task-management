@@ -28,12 +28,12 @@ export const LabelledFormComponent: React.FC<LabelledFormComponentProps> = ({
 	return (
 		<div className={styles.formComponent} style={{ width, ...style }}>
 			<label htmlFor={htmlFor}>{labelText}</label>
-			{formComponent || children}
 			{error && (
-				<Text style={{ fontSize: "12px" }} type="danger">
+				<Text style={{ fontSize: "12px", color: "red" }} type="danger">
 					{errorText}
 				</Text>
 			)}
+			{formComponent || children}
 		</div>
 	);
 };
