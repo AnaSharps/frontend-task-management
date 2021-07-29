@@ -4,6 +4,10 @@ import { Login } from "./screens/Login";
 import { Register } from "./screens/Registration";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Dashboard } from "./screens/UserManagement";
+import { Home } from "./screens/Home";
+import { Signup } from "./screens/Signup";
+import { ForgotPass } from "./screens/ForgotPass";
+import { ChangePass } from "./screens/ChangePass";
 
 function App() {
 	return (
@@ -14,14 +18,23 @@ function App() {
 						<Route path="/login">
 							<Login />
 						</Route>
-						{/* <Route path="/register">
-							<Register />
-						</Route> */}
-						<Route path="/loggedin">
-							<Dashboard />
+						<Route path="/register">
+							<Signup />
+						</Route>
+						<Route path="/forgotPassword">
+							<ForgotPass />
+						</Route>
+						<Route path="/resetPass/*">
+							<ChangePass forgot />
 						</Route>
 						<Route path="/verifyEmail/*">
 							<Register />
+						</Route>
+						<Route path="/home/changePassword">
+							<ChangePass />
+						</Route>
+						<Route path="/home/loggedin">
+							<Dashboard />
 						</Route>
 						<Route path="/">
 							<Login />
