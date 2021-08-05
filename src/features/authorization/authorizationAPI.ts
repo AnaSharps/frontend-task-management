@@ -1,22 +1,10 @@
 import axios from "axios";
 import { host } from "../../app/constants";
 
-export function checkLoggedIn(url: string) {
-	return axios.post(
-		`${host}/api`,
-		{
-			url,
-		},
-		{ withCredentials: true }
-	);
+export function checkLoggedIn() {
+	return axios.get(`${host}/api`, { withCredentials: true });
 }
 
-export function checkAdmin(url: string) {
-	return axios.post(
-		`${host}/admin`,
-		{
-			url,
-		},
-		{ withCredentials: true }
-	);
+export function checkAdmin() {
+	return axios.get(`${host}/admin`, { withCredentials: true });
 }

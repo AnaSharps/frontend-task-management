@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
-import { authorizationInit } from "../authorization";
+import { adminAuthInit, authorizationInit } from "../authorization";
+import { setAdmin, setAdminChanged } from "../isAdmin";
 import { changeLoading } from "../loading";
 import { loginWithCredentials, logout } from "./loginAPI";
 
@@ -31,7 +32,12 @@ export const { setLoginChanged, resetLoginChanged } = LoginStateSlice.actions;
 
 export const loginSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
-	console.log("hellooo");
+	if (response.data.admin) {
+		dispatch(setAdmin(true));
+	} else {
+		dispatch(setAdmin(false));
+	}
+	dispatch(setAdminChanged());
 	dispatch(setLoginChanged());
 };
 
@@ -56,7 +62,7 @@ export const loginInit = (credentials: {
 export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
 	dispatch(setLoginChanged());
-	dispatch(authorizationInit("home/loggedin"));
+	// dispatch(authorizationInit());
 };
 
 export const logoutFailed = (error: any): AppThunk => (dispatch) => {

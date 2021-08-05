@@ -67,7 +67,7 @@ function App() {
 								<Router>
 									<Switch>
 										<Route path="/admin/loggedin">
-											<Dashboard />
+											<Dashboard admin />
 										</Route>
 										<Route path="/admin/changePassword">
 											<ChangePass />

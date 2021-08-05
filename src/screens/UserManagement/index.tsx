@@ -23,15 +23,16 @@ import { changeLoading, selectStatus } from "../../features/loading";
 import { authorizationInit } from "../../features/authorization";
 import { logoutInit } from "../../features/login";
 
-export interface DashboardProps {}
+export interface DashboardProps {
+	admin?: boolean;
+}
 
-export const Dashboard: React.FC<DashboardProps> = () => {
+export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	const dispatch = useAppDispatch();
 	const users = useAppSelector(selectUserList);
 	const display = useAppSelector(selectDisplayNum);
 	const search = useAppSelector(selectSearch);
 	const status = useAppSelector(selectStatus);
-	const isAdmin = useAppSelector(selectIsAdmin);
 
 	const history = useHistory();
 	const location = useLocation();
@@ -79,7 +80,7 @@ export const Dashboard: React.FC<DashboardProps> = () => {
 			{displayPage && (
 				<>
 					<div style={{ display: "flex" }}>
-						{isAdmin && (
+						{admin && (
 							<CustomButton
 								isSecondary={false}
 								text="Add User"
@@ -136,10 +137,9 @@ export const Dashboard: React.FC<DashboardProps> = () => {
 									<span>Created By: {user.createdBy} </span>
 								</div>
 
-								{isAdmin && (
+								{admin && (
 									<>
 										<CustomButton isSecondary={false} text="Delete User" />
-										<CustomButton isSecondary={false} text="Change Password" />
 									</>
 								)}
 							</div>

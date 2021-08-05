@@ -4,6 +4,7 @@ import { checkAdmin, checkLoggedIn } from "./authorizationAPI";
 import {} from "react-router";
 import { getUsersInit } from "../users";
 import { resetLoginChanged } from "../login";
+import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 
 // export type AUTHSUCCESS = {
 // 	type: string;
@@ -12,6 +13,7 @@ import { resetLoginChanged } from "../login";
 
 export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(getUsersInit());
+	dispatch(resetAdminChanged());
 	dispatch(resetLoginChanged());
 };
 
@@ -21,13 +23,10 @@ export const authorizationFailed = (error: any): AppThunk => (dispatch) => {
 	// dispatch(setError(error));
 };
 
-export const authorizationInit = (
-	// url: string,
-	url2: string
-): AppThunk => async (dispatch) => {
+export const authorizationInit = (): AppThunk => async (dispatch) => {
 	dispatch(changeLoading("processing"));
 	try {
-		const response = await checkLoggedIn(url2);
+		const response = await checkLoggedIn();
 		dispatch(authorizationSuccess(response));
 
 		// if (response) {
@@ -39,5 +38,28 @@ export const authorizationInit = (
 		// }
 	} catch (error) {
 		dispatch(authorizationFailed(error));
+	}
+};
+export const adminAuthSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(getUsersInit());
+	dispatch(resetAdminChanged());
+	dispatch(resetLoginChanged());
+};
+
+export const adminAuthFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	dispatch(setAdmin(false));
+	dispatch(setAdminChanged());
+	// dispatch(resetLoginChanged());
+	// dispatch(setError(error));
+};
+
+export const adminAuthInit = (): AppThunk => async (dispatch) => {
+	dispatch(changeLoading("processing"));
+	try {
+		const response = await checkAdmin();
+		dispatch(adminAuthSuccess(response));
+	} catch (error) {
+		dispatch(adminAuthFailed(error));
 	}
 };
