@@ -8,18 +8,16 @@ import {
 	selectDisplayNum,
 	selectOffset,
 	selectSearch,
+	selectTotalCount,
 	selectUserList,
 	setDisplay,
+	setOffset,
 	setSearch,
-	setUsers,
 } from "../../features/users";
-import { selectToken, setToken } from "../../features/token";
 import styles from "./style.module.css";
-import { selectIsAdmin, setAdmin } from "../../features/isAdmin";
 import { CustomButton } from "../../components/Button";
 import { CustomInput } from "../../components/CustomInput";
-import { changeLoading, selectStatus } from "../../features/loading";
-import { authorizationInit } from "../../features/authorization";
+import { selectStatus } from "../../features/loading";
 import { logoutInit } from "../../features/login";
 import { deleteUserInit } from "../../features/deregistration";
 
@@ -30,9 +28,10 @@ export interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	const dispatch = useAppDispatch();
 	const users = useAppSelector(selectUserList);
-	const display = useAppSelector(selectDisplayNum);
 	const search = useAppSelector(selectSearch);
-	const status = useAppSelector(selectStatus);
+	const ofset = useAppSelector(selectOffset);
+	const display = useAppSelector(selectDisplayNum);
+	const total = useAppSelector(selectTotalCount);
 
 	const history = useHistory();
 	const location = useLocation();
@@ -53,7 +52,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 		}
 	}
 
-	function searchUsers() {
+	function searchUsers(viewNext: number = 0) {
+		if (viewNext === 1) dispatch(setOffset(ofset + display));
+		else if (viewNext === -1) dispatch(setOffset(ofset - display));
 		dispatch(getUsersInit());
 	}
 
@@ -79,19 +80,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 				/>
 			</div>
 			<CustomInput
-				placeholder={"display"}
-				value={display}
-				type="number"
-				onChange={(e) => handleChange(e.target.value, "display")}
-			/>
-			<CustomInput
 				placeholder={"Search"}
 				type="text"
 				value={search ? search : ""}
 				onChange={(e) => handleChange(e.target.value, "search")}
 			/>
-			<CustomButton onClick={searchUsers} text="Search" isSecondary={false} />
-			{/* {loading && loading} */}
+			<CustomButton
+				onClick={() => searchUsers()}
+				text="Search"
+				isSecondary={false}
+			/>
 			{users?.map((user, idx) => {
 				return (
 					<div
@@ -112,7 +110,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 							}}
 						>
 							<span>S.no.: {idx + 1}</span>
-							<span>ID: {user.name} </span>
+							<span>Name: {user.name} </span>
 							<span>Email: {user.email} </span>
 							<span>Created By: {user.createdBy} </span>
 						</div>
@@ -129,6 +127,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 					</div>
 				);
 			})}
+			{ofset > 0 && (
+				<CustomButton text="Prev" onClick={() => searchUsers(-1)} />
+			)}
+			{total > ofset + display && (
+				<CustomButton text="Next" onClick={() => searchUsers(1)} />
+			)}
 		</div>
 	);
 };

@@ -17,6 +17,7 @@ export interface UserListState {
 	display: number;
 	ofset: number;
 	search: string;
+	totalCount: number;
 }
 
 const initialState: UserListState = {
@@ -24,11 +25,13 @@ const initialState: UserListState = {
 	display: 10,
 	ofset: 0,
 	search: "",
+	totalCount: 0,
 };
 
 export const getUsersSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
 	dispatch(setUsers(response.data.users));
+	dispatch(setTotalCount(response.data.totalCount));
 };
 
 export const getUsersFailed = (error: any): AppThunk => (dispatch) => {
@@ -67,6 +70,9 @@ export const userListSlice = createSlice({
 		setSearch: (state, action: PayloadAction<string>) => {
 			state.search = action.payload;
 		},
+		setTotalCount: (state, action: PayloadAction<number>) => {
+			state.totalCount = action.payload;
+		},
 	},
 });
 
@@ -75,11 +81,13 @@ export const {
 	setDisplay,
 	setOffset,
 	setSearch,
+	setTotalCount,
 } = userListSlice.actions;
 
 export const selectUserList = (state: RootState) => state.userList.users;
 export const selectDisplayNum = (state: RootState) => state.userList.display;
 export const selectOffset = (state: RootState) => state.userList.ofset;
 export const selectSearch = (state: RootState) => state.userList.search;
+export const selectTotalCount = (state: RootState) => state.userList.totalCount;
 
 export default userListSlice.reducer;
