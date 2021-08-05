@@ -17,6 +17,7 @@ export interface FormEmailProps {
 	onSubmit: Function;
 	changePageText: string;
 	pass?: boolean;
+	showChangePage?: boolean;
 }
 
 export const FormEmail: React.FC<FormEmailProps> = ({
@@ -25,6 +26,7 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 	onSubmit,
 	changePageText,
 	pass = false,
+	showChangePage = true,
 }) => {
 	const [email, setEmail] = useState("");
 	const [emailErr, setEmailErr] = useState("");
@@ -75,15 +77,17 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 				loading={status === "processing"}
 				onClick={() => onSubmit(email)}
 			/>
-			<div className={styles.changeView}>
-				{changePageText}
-				<CustomButton
-					isSecondary={true}
-					size="small"
-					text="Login"
-					onClick={() => onChangePage()}
-				/>
-			</div>
+			{showChangePage && (
+				<div className={styles.changeView}>
+					{changePageText}
+					<CustomButton
+						isSecondary={true}
+						size="small"
+						text="Login"
+						onClick={() => onChangePage()}
+					/>
+				</div>
+			)}
 		</>
 	);
 };

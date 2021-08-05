@@ -30,6 +30,7 @@ export const Signup: React.FC<SignupProps> = ({ admin = false }) => {
 					resendEmailText="Resend Verification Email"
 					onChangePage={() => history.push("/app/login")}
 					onSubmit={handleSubmit}
+					showChangePage={!admin}
 					changePageText="Already a user?"
 				></FormEmail>
 			</FormContainer>

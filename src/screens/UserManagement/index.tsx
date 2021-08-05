@@ -21,6 +21,7 @@ import { CustomInput } from "../../components/CustomInput";
 import { changeLoading, selectStatus } from "../../features/loading";
 import { authorizationInit } from "../../features/authorization";
 import { logoutInit } from "../../features/login";
+import { deleteUserInit } from "../../features/deregistration";
 
 export interface DashboardProps {
 	admin?: boolean;
@@ -58,6 +59,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 
 	function changePassword() {
 		history.push("/home/changePassword");
+	}
+
+	function deleteUser(email: string) {
+		dispatch(deleteUserInit(email));
 	}
 
 	return (
@@ -114,7 +119,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 
 						{admin && (
 							<>
-								<CustomButton isSecondary={false} text="Delete User" />
+								<CustomButton
+									isSecondary={false}
+									text="Delete User"
+									onClick={() => deleteUser(user.email)}
+								/>
 							</>
 						)}
 					</div>
