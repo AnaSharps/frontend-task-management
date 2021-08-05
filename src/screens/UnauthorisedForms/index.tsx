@@ -6,15 +6,11 @@ import { selectStatus } from "../../features/loading";
 import { Spin } from "antd";
 import styles from "./style.module.css";
 import { BrowserRouter as Router, Redirect, Switch } from "react-router-dom";
-import { RouteType, RouteWithSubRoutes } from "../../App";
 import { selectLoginChanged } from "../../features/login";
 
-export interface UnauthorisedFormsProps {
-	routes?: RouteType[];
-}
+export interface UnauthorisedFormsProps {}
 
 export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
-	routes,
 	...props
 }) => {
 	const [once, setOnce] = useState(true);
