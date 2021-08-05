@@ -36,7 +36,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	const history = useHistory();
 	const location = useLocation();
 
-	function addUser() {}
+	function addUser() {
+		history.push("/admin/addUser");
+	}
 
 	function logout() {
 		dispatch(logoutInit());

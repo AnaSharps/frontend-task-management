@@ -54,7 +54,7 @@ export const Register: React.FC<RegisterProps> = () => {
 			setPassErr(valid);
 			setPass(val);
 		} else {
-			if (confirmPass === pass) setConfirmPassErr("");
+			if (val === pass) setConfirmPassErr("");
 			else setConfirmPassErr("Passwords do not match");
 			setConfirmPass(val);
 		}

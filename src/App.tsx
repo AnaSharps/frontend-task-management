@@ -70,6 +70,9 @@ function App() {
 										<Route path="/admin/loggedin">
 											<Dashboard admin />
 										</Route>
+										<Route path="/admin/addUser">
+											<Signup admin />
+										</Route>
 										<Route path="/admin/changePassword">
 											<ChangePass />
 										</Route>

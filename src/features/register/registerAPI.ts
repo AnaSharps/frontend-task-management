@@ -6,3 +6,15 @@ export function registerSelf(email: string) {
 		email,
 	});
 }
+
+export function addUser(email: string) {
+	return axios.post(
+		`${host}/admin/addUser`,
+		{
+			email,
+		},
+		{
+			withCredentials: true,
+		}
+	);
+}
