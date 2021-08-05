@@ -18,6 +18,7 @@ import { UnauthorisedForms } from "./screens/UnauthorisedForms";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectStatus } from "./features/loading";
 import { authorizationInit } from "./features/authorization";
+import { AdminHome } from "./screens/AdminHome";
 
 function App() {
 	return (
@@ -63,7 +64,7 @@ function App() {
 							</Home>
 						</Route>
 						<Route path="/admin">
-							<Home admin>
+							<AdminHome>
 								<Router>
 									<Switch>
 										<Route path="/admin/loggedin">
@@ -74,7 +75,7 @@ function App() {
 										</Route>
 									</Switch>
 								</Router>
-							</Home>
+							</AdminHome>
 						</Route>
 					</Switch>
 				</Router>

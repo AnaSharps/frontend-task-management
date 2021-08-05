@@ -9,9 +9,9 @@ import { selectStatus } from "../../features/loading";
 import { selectLoginChanged } from "../../features/login";
 import styles from "./style.module.css";
 
-export interface HomeProps {}
+export interface AdminHomeProps {}
 
-export const Home: React.FC<HomeProps> = ({ ...props }) => {
+export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 	const history = useHistory();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
@@ -24,15 +24,8 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 
 	useEffect(() => {
 		if (once || loginchanged || adminChanged) {
-			if (isAdmin) {
-				console.log("admin here");
-				dispatch(adminAuthInit());
-				setOnce(false);
-			} else {
-				console.log("normal here");
-				dispatch(authorizationInit());
-				setOnce(false);
-			}
+			dispatch(adminAuthInit());
+			setOnce(false);
 		}
 	}, [once, loginchanged, adminChanged]);
 
@@ -40,9 +33,7 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 		<>
 			{(once || loginchanged || adminChanged) && status === "failed"
 				? history.push("/app/login")
-				: !isAdmin
-				? props.children
-				: history.push("/admin/loggedin")}
+				: props.children}
 		</>
 	);
 };

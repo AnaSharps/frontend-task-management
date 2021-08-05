@@ -5,7 +5,6 @@ import { CustomInput } from "../../components/CustomInput";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { CustomButton } from "../../components/Button";
 import { LabelledFormComponent } from "../../components/LabelledFormComponent";
-import { changeSignup, selectSignup } from "../../features/signupForm";
 import { changeLoading, selectStatus } from "../../features/loading";
 import { useHistory } from "react-router-dom";
 import { Spin } from "antd";
@@ -15,35 +14,17 @@ import { authorizationInit } from "../../features/authorization";
 import { validate } from "../../app/utils/validate";
 import { FormContainer } from "../../components/FormContainer";
 
-// axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-
 export interface LoginProps {}
 
 export const Login: React.FC<LoginProps> = () => {
-	const signup = useAppSelector(selectSignup);
 	const status = useAppSelector(selectStatus);
 	const dispatch = useAppDispatch();
 
 	const [email, setEmail] = useState("");
 	const [emailErr, setEmailErr] = useState("");
 	const [pass, setPass] = useState("");
-	// const [once, setOnce] = useState(false);
 
 	let history = useHistory();
-
-	// const [display, setDisplay] = useState(false);
-
-	// useEffect(() => {
-	// 	// if (!once) {
-	// 	// 	setOnce(true);
-	// 	// 	// dispatch(authorizationInit("/admin/loggedin", "/home/loggedin"));
-	// 	// 	dispatch(authorizationInit("/home/loggedin"));
-	// 	// } else if (status === "passed") {
-	// 	// 	history.push("/home/loggedin");
-	// 	// } else if (status === "failed") {
-	// 	setDisplay(true);
-	// 	// }
-	// }, [status]);
 
 	function handleChange(val: string, type: "email" | "pass") {
 		if (type === "email") {
@@ -98,7 +79,7 @@ export const Login: React.FC<LoginProps> = () => {
 			<CustomButton
 				className={styles.button}
 				type="primary"
-				text={signup ? "Confirm Email" : "Login"}
+				text={"Login"}
 				loading={false}
 				onClick={handleSubmit}
 			/>
