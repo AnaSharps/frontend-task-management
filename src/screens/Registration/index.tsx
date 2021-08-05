@@ -40,7 +40,7 @@ export const Register: React.FC<RegisterProps> = () => {
 
 	useEffect(() => {
 		if (token) {
-			history.push("/loggedin");
+			history.push("/home/loggedin");
 		}
 	}, [token]);
 
@@ -79,7 +79,7 @@ export const Register: React.FC<RegisterProps> = () => {
 					window.localStorage.setItem("token", res.data.token);
 					dispatch(setToken(res.data.token));
 					dispatch(changeLoading("passed"));
-					history.push("/loggedin");
+					history.push("/home/loggedin");
 				})
 				.catch((err) => console.error(err));
 		}

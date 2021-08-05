@@ -35,23 +35,23 @@ export const Dashboard: React.FC<DashboardProps> = () => {
 
 	const history = useHistory();
 	const location = useLocation();
-	const [displayPage, setDisplayPage] = useState(false);
+	const [displayPage, setDisplayPage] = useState(true);
 	const [once, setOnce] = useState(false);
 
-	useEffect(() => {
-		if (!once) {
-			setOnce(true);
-			dispatch(authorizationInit(location.pathname));
-		} else if (status === "failed") {
-			history.push("/login");
-		} else if (status === "passed") {
-			setDisplayPage(true);
-		}
-	}, [status]);
+	// useEffect(() => {
+	// 	if (!once) {
+	// 		setOnce(true);
+	// 		dispatch(authorizationInit(location.pathname));
+	// 	} else if (status === "failed") {
+	// 		history.push("/login");
+	// 	} else if (status === "passed") {
+	// 		setDisplayPage(true);
+	// 	}
+	// }, [status]);
 
 	function addUser() {
 		dispatch(setSignup(true));
-		history.push("/login");
+		history.push("/app/login");
 	}
 
 	function logout() {

@@ -3,10 +3,12 @@ import { RootState } from "../../app/store";
 
 export interface VerifyState {
 	verifyAgain: boolean;
+	sentPassLink: boolean;
 }
 
 const initialState: VerifyState = {
 	verifyAgain: false,
+	sentPassLink: false,
 };
 
 export const verifyEmailSlice = createSlice({
@@ -16,12 +18,17 @@ export const verifyEmailSlice = createSlice({
 		sendVerify: (state) => {
 			state.verifyAgain = true;
 		},
+		sendPassLink: (state) => {
+			state.sentPassLink = true;
+		},
 	},
 });
 
-export const { sendVerify } = verifyEmailSlice.actions;
+export const { sendVerify, sendPassLink } = verifyEmailSlice.actions;
 
 export const selectVerifySent = (state: RootState) =>
 	state.verifyEmail.verifyAgain;
+export const selectPassLink = (state: RootState) =>
+	state.verifyEmail.sentPassLink;
 
 export default verifyEmailSlice.reducer;

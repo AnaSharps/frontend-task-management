@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { validate } from "../../app/utils/validate";
 import { selectStatus } from "../../features/loading";
-import { selectVerifySent } from "../../features/verifyEmailSent";
+import {
+	selectPassLink,
+	selectVerifySent,
+} from "../../features/verifyEmailSent";
 import { CustomButton } from "../Button";
 import { CustomInput } from "../CustomInput";
 import { LabelledFormComponent } from "../LabelledFormComponent";
@@ -13,6 +16,7 @@ export interface FormEmailProps {
 	onChangePage: Function;
 	onSubmit: Function;
 	changePageText: string;
+	pass?: boolean;
 }
 
 export const FormEmail: React.FC<FormEmailProps> = ({
@@ -20,12 +24,14 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 	onChangePage,
 	onSubmit,
 	changePageText,
+	pass = false,
 }) => {
 	const [email, setEmail] = useState("");
 	const [emailErr, setEmailErr] = useState("");
 
 	const status = useAppSelector(selectStatus);
 	const verifyEmail = useAppSelector(selectVerifySent);
+	const sentPassLink = useAppSelector(selectPassLink);
 
 	function handleChange(val: string) {
 		const valid = validate({ val, type: "email" });
@@ -48,7 +54,14 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 					onChange={(e) => handleChange(e.target.value)}
 				/>
 			</LabelledFormComponent>
-			{verifyEmail && (
+			{!pass && verifyEmail && (
+				<CustomButton
+					isSecondary
+					text={resendEmailText}
+					onClick={() => onSubmit(email)}
+				/>
+			)}
+			{pass && sentPassLink && (
 				<CustomButton
 					isSecondary
 					text={resendEmailText}

@@ -1,10 +1,38 @@
-import { AppThunk } from "../../app/store";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppThunk, RootState } from "../../app/store";
 import { authorizationInit } from "../authorization";
 import { changeLoading } from "../loading";
 import { loginWithCredentials, logout } from "./loginAPI";
 
+export interface LoginState {
+	loginChanged: boolean;
+}
+
+const initialState: LoginState = {
+	loginChanged: false,
+};
+
+export const LoginStateSlice = createSlice({
+	name: "loginState",
+	initialState,
+	reducers: {
+		setLoginChanged: (state) => {
+			console.log("set true");
+			state.loginChanged = true;
+		},
+		resetLoginChanged: (state) => {
+			console.log("set false");
+			state.loginChanged = false;
+		},
+	},
+});
+
+export const { setLoginChanged, resetLoginChanged } = LoginStateSlice.actions;
+
 export const loginSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
+	console.log("hellooo");
+	dispatch(setLoginChanged());
 };
 
 export const loginFailed = (error: any): AppThunk => (dispatch) => {
@@ -27,7 +55,7 @@ export const loginInit = (credentials: {
 
 export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
-	// dispatch(authorizationInit("/admin/loggedin", "/home/loggedin"));
+	dispatch(setLoginChanged());
 	dispatch(authorizationInit("home/loggedin"));
 };
 
@@ -45,3 +73,8 @@ export const logoutInit = (): AppThunk => async (dispatch) => {
 		dispatch(logoutFailed(error));
 	}
 };
+
+export const selectLoginChanged = (state: RootState) =>
+	state.login.loginChanged;
+
+export default LoginStateSlice.reducer;

@@ -3,6 +3,7 @@ import { changeLoading } from "../loading";
 import { checkAdmin, checkLoggedIn } from "./authorizationAPI";
 import {} from "react-router";
 import { getUsersInit } from "../users";
+import { resetLoginChanged } from "../login";
 
 // export type AUTHSUCCESS = {
 // 	type: string;
@@ -11,10 +12,12 @@ import { getUsersInit } from "../users";
 
 export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(getUsersInit());
+	dispatch(resetLoginChanged());
 };
 
 export const authorizationFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("failed"));
+	dispatch(resetLoginChanged());
 	// dispatch(setError(error));
 };
 

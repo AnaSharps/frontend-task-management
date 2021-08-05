@@ -6,6 +6,7 @@ import loadingReducer from "../features/loading";
 import userListReducer from "../features/users";
 import tokenReducer from "../features/token";
 import isAdminReducer from "../features/isAdmin";
+import loginStateReducer from "../features/login";
 
 export const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
 		userList: userListReducer,
 		token: tokenReducer,
 		isAdmin: isAdminReducer,
+		login: loginStateReducer,
 	},
 });
 

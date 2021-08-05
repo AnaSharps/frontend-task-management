@@ -1,9 +1,11 @@
 import { AppThunk } from "../../app/store";
 import { authorizationInit } from "../authorization";
 import { changeLoading } from "../loading";
+import { sendPassLink } from "../verifyEmailSent";
 import { forgetPass, resetPass, changePass } from "./forgotPassAPI";
 
 export const forgotPassSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(sendPassLink());
 	dispatch(changeLoading("passed"));
 };
 

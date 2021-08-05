@@ -45,21 +45,6 @@ export const ChangePass: React.FC<ChangePassProps> = ({ forgot = false }) => {
 		setSubmitted(true);
 	}
 
-	useEffect(() => {
-		if (!once) {
-			dispatch(authorizationInit("/changePassword"));
-			setOnce(true);
-		}
-		if (status === "passed" && once && forgot) {
-			history.push("/home/loggedin");
-		} else if (status === "failed" && once && !forgot) {
-			history.push("/login");
-		}
-		if (submitted) {
-			history.push("/login");
-		}
-	}, [status]);
-
 	return (
 		<FormContainer pageTitle="CHANGE PASSWORD">
 			{!forgot && (

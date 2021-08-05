@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { FormContainer } from "../../components/FormContainer";
 import { FormEmail } from "../../components/FormEmail";
 import { forgotPassInit } from "../../features/forgotPAss";
+import { sendPassLink } from "../../features/verifyEmailSent";
 import styles from "./style.module.css";
 
 export interface ForgotPassProps {}
@@ -42,10 +43,11 @@ export const ForgotPass: React.FC<ForgotPassProps> = () => {
 			<FormEmail
 				resendEmailText="Resend Password Reset Email"
 				onChangePage={() => {
-					history.push("/login");
+					history.push("/app/login");
 				}}
 				onSubmit={handleSubmit}
 				changePageText="Return to Login Page?"
+				pass
 			/>
 		</FormContainer>
 	);
