@@ -7,9 +7,11 @@ import { authorizationInit } from "../../features/authorization";
 import { selectStatus } from "../../features/loading";
 import styles from "./style.module.css";
 
-export interface HomeProps {}
+export interface HomeProps {
+	admin?: boolean;
+}
 
-export const Home: React.FC<HomeProps> = ({ ...props }) => {
+export const Home: React.FC<HomeProps> = ({ admin = false, ...props }) => {
 	const history = useHistory();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
@@ -25,10 +27,9 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 
 	return (
 		<>
-			{status === "processing" && <Spin />}
-			{status === "failed" && history.push("/app/login")}
-			{/* {status === "passed" && <Redirect to={location.pathname} />} */}
-			{status === "passed" && props.children}
+			{once && status === "failed"
+				? history.push("/app/login")
+				: props.children}
 		</>
 	);
 };

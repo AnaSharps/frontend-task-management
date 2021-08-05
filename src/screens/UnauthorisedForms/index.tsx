@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authorizationInit } from "../../features/authorization";
 import { selectStatus } from "../../features/loading";
-import { Spin } from "antd";
 import styles from "./style.module.css";
-import { BrowserRouter as Router, Redirect, Switch } from "react-router-dom";
 import { selectLoginChanged } from "../../features/login";
 
 export interface UnauthorisedFormsProps {}

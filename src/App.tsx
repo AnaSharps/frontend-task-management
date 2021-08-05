@@ -62,6 +62,20 @@ function App() {
 								</Router>
 							</Home>
 						</Route>
+						<Route path="/admin">
+							<Home admin>
+								<Router>
+									<Switch>
+										<Route path="/admin/loggedin">
+											<Dashboard />
+										</Route>
+										<Route path="/admin/changePassword">
+											<ChangePass />
+										</Route>
+									</Switch>
+								</Router>
+							</Home>
+						</Route>
 					</Switch>
 				</Router>
 			</div>
