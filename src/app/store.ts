@@ -8,6 +8,7 @@ import tokenReducer from "../features/token";
 import isAdminReducer from "../features/isAdmin";
 import loginStateReducer from "../features/login";
 import mainContainerReducer from "../features/mainContainerData";
+import dashboardReducer from "../features/dashboard";
 
 export const store = configureStore({
 	reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
 		isAdmin: isAdminReducer,
 		login: loginStateReducer,
 		mainContData: mainContainerReducer,
+		dashboard: dashboardReducer,
 	},
 });
 
