@@ -42,16 +42,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 	useEffect(() => {
 		const regexp = new RegExp("^/([a-zA-Z]*)");
 		const group = regexp.exec(match.path);
-		if ((group && group[1] === "admin") || (group && group[1] === "home")) {
-			const acc = location.pathname.split("/")[2];
-			console.log(acc);
-			if (acc === "account") {
-				setAccount(true);
+		if (group && group[1]) {
+			const navItem = location.pathname.split("/")[2];
+			if (navItem === "account") {
 				setActiveIndex(null);
+				setAccount(true);
+			} else {
+				setActiveIndex(routesData[navItem]);
+				setAccount(false);
 			}
-		} else if (group && group[1]) {
-			setActiveIndex(routesData[group[1]]);
-			setAccount(false);
 		}
 	}, []);
 
@@ -77,7 +76,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 						width: "100%",
 						alignItems: "center",
 						justifyContent: "center",
-						backgroundColor: account ? "white" : "none",
+						backgroundColor: account ? "white" : backgroundColor,
+						borderRight: account ? `2px solid ${backgroundColor}` : "none",
 					}}
 					onClick={() => {
 						setAccount(true);

@@ -138,13 +138,15 @@ export const UserManagement: React.FC<UserManagementProps> = ({
 						</div>
 					);
 				})}
+				{ofset > 0 && (
+					<CustomButton text="Prev" onClick={() => searchUsers(-1)} />
+				)}
+				{total > ofset + display && (
+					<div style={{ justifySelf: "flex-end" }}>
+						<CustomButton text="Next" onClick={() => searchUsers(1)} />
+					</div>
+				)}
 			</CustomCard>
-			{ofset > 0 && (
-				<CustomButton text="Prev" onClick={() => searchUsers(-1)} />
-			)}
-			{total > ofset + display && (
-				<CustomButton text="Next" onClick={() => searchUsers(1)} />
-			)}
 		</div>
 	);
 };

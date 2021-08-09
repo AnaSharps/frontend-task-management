@@ -25,7 +25,7 @@ export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 			setOnce(false);
 		} else {
 			if (currUser) {
-				if (currUser.role === "NORMAL") history.push("/home/loggedin");
+				if (currUser.role === "NORMAL") history.push("/home/dashboard");
 			} else history.push("/app/login");
 		}
 	}, [once, currUser]);

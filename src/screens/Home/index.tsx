@@ -26,7 +26,7 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 			setOnce(false);
 		} else {
 			if (currUser) {
-				if (currUser.role === "ADMIN") history.push("/admin/loggedin");
+				if (currUser.role === "ADMIN") history.push("/admin/dashboard");
 			} else history.push("/app/login");
 		}
 	}, [once, currUser]);

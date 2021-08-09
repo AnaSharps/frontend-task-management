@@ -19,6 +19,8 @@ import { AdminHome } from "./screens/AdminHome";
 import { selectMainContData } from "./features/mainContainerData";
 import { MainContainer } from "./components/MAinContainer";
 import { Account } from "./screens/Account";
+import { Dashboard } from "./screens/Dashboard";
+import { TaskManagement } from "./screens/TaskMAnagement";
 
 function App() {
 	const mainContainerData = useAppSelector(selectMainContData);
@@ -59,10 +61,30 @@ function App() {
 								<Router>
 									<Switch>
 										<Route
-											// path="/home"
-											path="/home/loggedin"
+											path="/home/dashboard"
 											render={() => (
-												// <Dashboard />
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Dashboard />}
+												/>
+											)}
+										/>
+										<Route
+											path="/home/tasks"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<TaskManagement />}
+												/>
+											)}
+										/>
+										<Route
+											path="/home/users"
+											render={() => (
 												<MainContainer
 													backString={mainContainerData.backstring}
 													title={mainContainerData.title}
@@ -73,15 +95,7 @@ function App() {
 										/>
 										<Route
 											path="/home/changePassword"
-											render={() => (
-												<ChangePass />
-												// <MainContainer
-												// 	backString={mainContainerData.backstring}
-												// 	title={mainContainerData.title}
-												// 	searchBar={mainContainerData.search}
-												// 	content={<ChangePass />}
-												// />
-											)}
+											render={() => <ChangePass />}
 										/>
 										<Route
 											path="/home/account"
@@ -96,7 +110,7 @@ function App() {
 										/>
 										<Route
 											path="/home"
-											render={() => <Redirect to="/home/loggedin" />}
+											render={() => <Redirect to="/home/dashboard" />}
 										/>
 									</Switch>
 								</Router>
@@ -107,7 +121,29 @@ function App() {
 								<Router>
 									<Switch>
 										<Route
-											path="/admin/loggedin"
+											path="/admin/dashboard"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Dashboard />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin/tasks"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<TaskManagement />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin/users"
 											render={() => (
 												<MainContainer
 													backString={mainContainerData.backstring}
@@ -119,27 +155,11 @@ function App() {
 										/>
 										<Route
 											path="/admin/addUser"
-											render={() => (
-												<Signup admin />
-												// <MainContainer
-												// 	backString={mainContainerData.backstring}
-												// 	title={mainContainerData.title}
-												// 	searchBar={mainContainerData.search}
-												// 	content={<Signup admin />}
-												// />
-											)}
+											render={() => <Signup admin />}
 										/>
 										<Route
 											path="/admin/changePassword"
-											render={() => (
-												<ChangePass />
-												// <MainContainer
-												// 	backString={mainContainerData.backstring}
-												// 	title={mainContainerData.title}
-												// 	searchBar={mainContainerData.search}
-												// 	content={<ChangePass />}
-												// />
-											)}
+											render={() => <ChangePass />}
 										/>
 										<Route
 											path="/admin/account"
@@ -154,7 +174,7 @@ function App() {
 										/>
 										<Route
 											path="/admin"
-											render={() => <Redirect to="/admin/loggedin" />}
+											render={() => <Redirect to="/admin/dashboard" />}
 										/>
 									</Switch>
 								</Router>

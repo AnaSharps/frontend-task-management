@@ -26,8 +26,8 @@ export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
 			setOnce(false);
 		} else {
 			if (currUser) {
-				if (currUser.role === "ADMIN") history.push("/admin/loggedin");
-				else history.push("/home/loggedin");
+				if (currUser.role === "ADMIN") history.push("/admin/dashboard");
+				else history.push("/home/dashboard");
 			}
 		}
 	}, [currUser, once]);
