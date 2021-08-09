@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import { changeLoading } from "../loading";
-import { getTodaysTasks } from "./dashboardAPI";
+import { getMyStats, getTodaysTasks } from "./dashboardAPI";
 
 export type TaskType = {
 	taskName: string;
@@ -25,10 +25,20 @@ export interface DashboardState {
 		assigned: TaskType[];
 		completed: TaskType[];
 	} | null;
+	myStats: {
+		total: number;
+		pendingNoActivity: number;
+		pendingInProgress: number;
+		overdueNoActivity: number;
+		overdueInProgress: number;
+		completedOnTime: number;
+		completedAfterDeadline: number;
+	} | null;
 }
 
 const initialState: DashboardState = {
 	todaysTasks: null,
+	myStats: null,
 };
 
 export const DashboardSlice = createSlice({
@@ -41,10 +51,13 @@ export const DashboardSlice = createSlice({
 		) => {
 			state.todaysTasks = action.payload;
 		},
+		setMyStats: (state, action: PayloadAction<DashboardState["myStats"]>) => {
+			state.myStats = action.payload;
+		},
 	},
 });
 
-export const { setTodaysTasks } = DashboardSlice.actions;
+export const { setTodaysTasks, setMyStats } = DashboardSlice.actions;
 
 export const getTodaysTasksSuccess = (response: any): AppThunk => (
 	dispatch
@@ -67,8 +80,28 @@ export const getTodaysTasksInit = (): AppThunk => async (dispatch) => {
 		dispatch(getTodaysTasksFailed(error));
 	}
 };
+export const getMyStatsSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("passed"));
+	dispatch(setMyStats(response.data.stats));
+};
+
+export const getMyStatsFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const getMyStatsInit = (): AppThunk => async (dispatch) => {
+	dispatch(changeLoading("processing"));
+	try {
+		const response = await getMyStats();
+		dispatch(getMyStatsSuccess(response));
+	} catch (error) {
+		dispatch(getMyStatsFailed(error));
+	}
+};
 
 export const selectTodaysTasks = (state: RootState) =>
 	state.dashboard.todaysTasks;
+export const selectMyStats = (state: RootState) => state.dashboard.myStats;
 
 export default DashboardSlice.reducer;

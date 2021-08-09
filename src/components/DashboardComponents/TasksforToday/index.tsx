@@ -38,6 +38,7 @@ export const TasksforToday: React.FC<TasksforTodayProps> = () => {
 					borderRadius: "10px",
 					boxShadow: "2px 2px 5px grey",
 					padding: "24px",
+					overflowY: "scroll",
 				}}
 			>
 				{todaysTasks?.map((task, idx) => {
