@@ -19,8 +19,12 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectStatus } from "./features/loading";
 import { authorizationInit } from "./features/authorization";
 import { AdminHome } from "./screens/AdminHome";
+import { selectMainContData } from "./features/mainContainerData";
+import { MainContainer } from "./components/MAinContainer";
 
 function App() {
+	const mainContainerData = useAppSelector(selectMainContData);
+
 	return (
 		<div className="App">
 			<div className="App-header">
@@ -30,24 +34,24 @@ function App() {
 							<UnauthorisedForms>
 								<Router>
 									<Switch>
-										<Route path="/app/login">
-											<Login />
-										</Route>
-										<Route path="/app/register">
-											<Signup />
-										</Route>
-										<Route path="/app/verifyEmail/*">
-											<Register />
-										</Route>
-										<Route path="/app/forgotPassword">
-											<ForgotPass />
-										</Route>
-										<Route path="/app/resetPass/*">
-											<ChangePass forgot />
-										</Route>
-										<Route path="/">
-											<Redirect to="/app/login" />
-										</Route>
+										<Route path="/app/login" render={() => <Login />} />
+										<Route path="/app/register" render={() => <Signup />} />
+										<Route
+											path="/app/verifyEmail/*"
+											render={() => <Register />}
+										/>
+										<Route
+											path="/app/forgotPassword"
+											render={() => <ForgotPass />}
+										/>
+										<Route
+											path="/app/resetPass/*"
+											render={() => <ChangePass />}
+										/>
+										<Route
+											path="/app"
+											render={() => <Redirect to="/app/login" />}
+										/>
 									</Switch>
 								</Router>
 							</UnauthorisedForms>
@@ -56,18 +60,34 @@ function App() {
 							<Home>
 								<Router>
 									<Switch>
-										<Route path="/home/loggedin">
-											<Dashboard />
-										</Route>
-										<Route path="/home/changePassword">
-											<ChangePass />
-										</Route>
-										<Route path="/">
-											<Redirect to="/home/loggedin" />
-										</Route>
-										<Route path="/">
-											<Redirect to="/home/loggedin" />
-										</Route>
+										<Route
+											// path="/home"
+											path="/home/loggedin"
+											render={() => (
+												// <Dashboard />
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Dashboard />}
+												/>
+											)}
+										/>
+										<Route
+											path="/home/changePassword"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<ChangePass />}
+												/>
+											)}
+										/>
+										<Route
+											path="/home"
+											render={() => <Redirect to="/home/loggedin" />}
+										/>
 									</Switch>
 								</Router>
 							</Home>
@@ -76,25 +96,48 @@ function App() {
 							<AdminHome>
 								<Router>
 									<Switch>
-										<Route path="/admin/loggedin">
-											<Dashboard admin />
-										</Route>
-										<Route path="/admin/addUser">
-											<Signup admin />
-										</Route>
-										<Route path="/admin/changePassword">
-											<ChangePass />
-										</Route>
-										<Route path="/">
-											<Redirect to="/admin/loggedin" />
-										</Route>
+										<Route
+											path={["/admin", "/admin/loggedin"]}
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Dashboard admin />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin/addUser"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Signup admin />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin/changePassword"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<ChangePass />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin"
+											render={() => <Redirect to="/admin/loggedin" />}
+										/>
 									</Switch>
 								</Router>
 							</AdminHome>
 						</Route>
-						<Route path="/">
-							<Redirect to="/app/login" />
-						</Route>
+						<Route path="/" render={() => <Redirect to="/app/login" />} />
 					</Switch>
 				</Router>
 			</div>

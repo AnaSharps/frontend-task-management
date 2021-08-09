@@ -1,0 +1,31 @@
+.header {
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header > div {
+  width: 100%;
+}
+
+.header > div > div {
+  width: 100%;
+}
+
+.header > div > div > div > div {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.header > div > div > span {
+  font-weight: 400;
+}
+
+.blueText * {
+  color: rgba(32, 154, 229, 1) !important;
+}
+
+.whiteText * {
+  color: white !important;
+}

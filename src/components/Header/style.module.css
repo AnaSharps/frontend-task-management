@@ -1,0 +1,63 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	padding: 12px 16px;
+}
+.back {
+	left: 0;
+}
+
+.searchBar {
+	margin-top: 12px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.logoWrapper {
+	display: inline-flex;
+	flex: 1;
+	justify-content: center;
+	position: absolute;
+	align-self: center;
+}
+
+.searchButton {
+	font-size: 24px;
+}
+
+.headerRow {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.account {
+	margin-left: auto;
+}
+
+.account:hover {
+	cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+	.container {
+		padding: 16px 24px;
+	}
+	.headerRow {
+		justify-content: initial;
+		position: initial;
+	}
+}
+
+.smallSearchBar {
+	justify-content: center;
+	width: 60%;
+	max-width: 420px;
+}
+
+.smallSearchBar > * {
+	margin-top: 0 !important;
+}

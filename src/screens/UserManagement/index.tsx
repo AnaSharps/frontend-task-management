@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { host } from "../../app/constants";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -20,6 +19,8 @@ import { CustomInput } from "../../components/CustomInput";
 import { selectStatus } from "../../features/loading";
 import { logoutInit } from "../../features/login";
 import { deleteUserInit } from "../../features/deregistration";
+import { CustomCard } from "../../components/Card";
+import { setMainContainerData } from "../../features/mainContainerData";
 
 export interface DashboardProps {
 	admin?: boolean;
@@ -36,12 +37,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	const history = useHistory();
 	const location = useLocation();
 
+	useEffect(() => {
+		dispatch(
+			setMainContainerData({
+				title: "Users",
+				search: true,
+				backstring: "",
+			})
+		);
+	}, []);
+
 	function addUser() {
 		history.push("/admin/addUser");
-	}
-
-	function logout() {
-		dispatch(logoutInit());
 	}
 
 	function handleChange(val: number | string, type: "display" | "search") {
@@ -67,12 +74,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	}
 
 	return (
-		<div>
+		<div
+			style={{
+				alignItems: "center",
+				justifyContent: "center",
+				display: "flex",
+				flexDirection: "column",
+			}}
+		>
 			<div style={{ display: "flex" }}>
 				{admin && (
 					<CustomButton isSecondary={false} text="Add User" onClick={addUser} />
 				)}
-				<CustomButton isSecondary={false} text="Logout" onClick={logout} />
 				<CustomButton
 					isSecondary={false}
 					text="Change Password"
@@ -83,6 +96,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 				placeholder={"Search"}
 				type="text"
 				value={search ? search : ""}
+				backgroundColor="white"
 				onChange={(e) => handleChange(e.target.value, "search")}
 			/>
 			<CustomButton
@@ -90,43 +104,85 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 				text="Search"
 				isSecondary={false}
 			/>
-			{users?.map((user, idx) => {
-				return (
-					<div
+			<CustomCard>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						padding: "24px",
+						fontWeight: "bold",
+					}}
+				>
+					<span
 						style={{
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
-							padding: "24px",
+							width: "10%",
 						}}
-						key={idx * 309487}
 					>
+						S.no.
+					</span>
+					<span
+						style={{
+							width: "30%",
+						}}
+					>
+						Name{" "}
+					</span>
+					<span
+						style={{
+							width: "30%",
+						}}
+					>
+						Email
+					</span>
+					<span>Created By</span>
+				</div>
+				{users?.map((user, idx) => {
+					return (
 						<div
 							style={{
 								display: "flex",
 								flexDirection: "row",
-								justifyContent: "space-between",
+								// justifyContent: "space-between",
 								padding: "24px",
 							}}
 						>
-							<span>S.no.: {idx + 1}</span>
-							<span>Name: {user.name} </span>
-							<span>Email: {user.email} </span>
-							<span>Created By: {user.createdBy} </span>
-						</div>
+							<span
+								style={{
+									width: "10%",
+								}}
+							>
+								{idx + 1}
+							</span>
+							<span
+								style={{
+									width: "30%",
+								}}
+							>
+								{user.name.toLowerCase()}{" "}
+							</span>
+							<span
+								style={{
+									width: "30%",
+								}}
+							>
+								{user.email.toLowerCase()}{" "}
+							</span>
+							<span>{user.createdBy.toLowerCase()} </span>
 
-						{admin && (
-							<>
-								<CustomButton
-									isSecondary={false}
-									text="Delete User"
-									onClick={() => deleteUser(user.email)}
-								/>
-							</>
-						)}
-					</div>
-				);
-			})}
+							{admin && (
+								<>
+									<CustomButton
+										isSecondary={false}
+										text="Delete User"
+										onClick={() => deleteUser(user.email)}
+										style={{ width: "5%", left: "95%" }}
+									/>
+								</>
+							)}
+						</div>
+					);
+				})}
+			</CustomCard>
 			{ofset > 0 && (
 				<CustomButton text="Prev" onClick={() => searchUsers(-1)} />
 			)}

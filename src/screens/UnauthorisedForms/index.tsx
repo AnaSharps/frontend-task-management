@@ -28,11 +28,11 @@ export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
 		console.log(loginChanged);
 		if (once || loginChanged || adminChanged) {
 			if (isAdmin) {
-				console.log("i dont know");
+				console.log("admin at form");
 				dispatch(adminAuthInit());
 				setOnce(false);
 			} else {
-				console.log("i know");
+				console.log("normal at form");
 				dispatch(authorizationInit());
 				setOnce(false);
 			}

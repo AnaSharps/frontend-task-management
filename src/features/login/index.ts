@@ -1,16 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import { adminAuthInit, authorizationInit } from "../authorization";
 import { setAdmin, setAdminChanged } from "../isAdmin";
 import { changeLoading } from "../loading";
+import { User } from "../users";
 import { loginWithCredentials, logout } from "./loginAPI";
 
 export interface LoginState {
 	loginChanged: boolean;
+	currUser: User | null;
 }
 
 const initialState: LoginState = {
 	loginChanged: false,
+	currUser: null,
 };
 
 export const LoginStateSlice = createSlice({
@@ -18,17 +21,26 @@ export const LoginStateSlice = createSlice({
 	initialState,
 	reducers: {
 		setLoginChanged: (state) => {
-			console.log("set true");
 			state.loginChanged = true;
 		},
 		resetLoginChanged: (state) => {
-			console.log("set false");
 			state.loginChanged = false;
+		},
+		resetUser: (state) => {
+			state.currUser = null;
+		},
+		setCurrUser: (state, action: PayloadAction<User>) => {
+			state.currUser = action.payload;
 		},
 	},
 });
 
-export const { setLoginChanged, resetLoginChanged } = LoginStateSlice.actions;
+export const {
+	setLoginChanged,
+	resetLoginChanged,
+	resetUser,
+	setCurrUser,
+} = LoginStateSlice.actions;
 
 export const loginSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
@@ -39,6 +51,7 @@ export const loginSuccess = (response: any): AppThunk => (dispatch) => {
 	}
 	dispatch(setAdminChanged());
 	dispatch(setLoginChanged());
+	dispatch(setCurrUser(response.data.user));
 };
 
 export const loginFailed = (error: any): AppThunk => (dispatch) => {
@@ -62,6 +75,7 @@ export const loginInit = (credentials: {
 export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
 	dispatch(setLoginChanged());
+	dispatch(resetUser());
 	// dispatch(authorizationInit());
 };
 
@@ -82,5 +96,6 @@ export const logoutInit = (): AppThunk => async (dispatch) => {
 
 export const selectLoginChanged = (state: RootState) =>
 	state.login.loginChanged;
+export const selectCurrUser = (state: RootState) => state.login.currUser;
 
 export default LoginStateSlice.reducer;

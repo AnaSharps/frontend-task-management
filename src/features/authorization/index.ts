@@ -3,7 +3,7 @@ import { changeLoading } from "../loading";
 import { checkAdmin, checkLoggedIn } from "./authorizationAPI";
 import {} from "react-router";
 import { getUsersInit } from "../users";
-import { resetLoginChanged } from "../login";
+import { resetLoginChanged, setCurrUser } from "../login";
 import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 
 // export type AUTHSUCCESS = {
@@ -12,6 +12,7 @@ import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 // };
 
 export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(setCurrUser(response.data.user));
 	dispatch(getUsersInit());
 	dispatch(resetAdminChanged());
 	dispatch(resetLoginChanged());
@@ -41,6 +42,7 @@ export const authorizationInit = (): AppThunk => async (dispatch) => {
 	}
 };
 export const adminAuthSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(setCurrUser(response.data.user));
 	dispatch(getUsersInit());
 	dispatch(resetAdminChanged());
 	dispatch(resetLoginChanged());
