@@ -26,23 +26,28 @@ export const Navbar: React.FC<NavbarProps> = ({
 	const currUser = useAppSelector(selectCurrUser);
 	const location = useLocation();
 
-	const [activeIndex, setActiveIndex] = useState<null | number>(null);
+	const [activeIndex, setActiveIndex] = useState<null | number>(0);
 	const [account, setAccount] = useState(false);
 
 	const onClickHandeler = (idx: number) => {
 		setActiveIndex(idx);
 		setAccount(false);
-		history.push(`/${Object.keys(routesData)[idx]}`);
+		history.push(
+			`/${currUser?.role === "ADMIN" ? "admin" : "home"}/${
+				Object.keys(routesData)[idx]
+			}`
+		);
 	};
 
 	useEffect(() => {
 		const regexp = new RegExp("^/([a-zA-Z]*)");
 		const group = regexp.exec(match.path);
-		if (group && group[1] === "admin") {
+		if ((group && group[1] === "admin") || (group && group[1] === "home")) {
 			const acc = location.pathname.split("/")[2];
 			console.log(acc);
 			if (acc === "account") {
 				setAccount(true);
+				setActiveIndex(null);
 			}
 		} else if (group && group[1]) {
 			setActiveIndex(routesData[group[1]]);
@@ -74,11 +79,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 						justifyContent: "center",
 						backgroundColor: account ? "white" : "none",
 					}}
-					onClick={() =>
+					onClick={() => {
+						setAccount(true);
+						setActiveIndex(null);
 						currUser?.role === "ADMIN"
 							? history.push("/admin/account")
-							: history.push("/home/account")
-					}
+							: history.push("/home/account");
+					}}
 				>
 					<Avatar
 						size={100}

@@ -1,19 +1,21 @@
 /* eslint-disable react/no-children-prop */
 import React, { useEffect /* , { useContext } */ } from "react";
 import { Avatar, Tag } from "antd";
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import styles from "./styles.module.css";
 import { CheckOutlined, UserOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCurrUser } from "../../features/login";
 import { setMainContainerData } from "../../features/mainContainerData";
 import { CustomTag } from "../../components/CustomTag";
+import { CustomButton } from "../../components/Button";
 
 export interface AccountProps {}
 
 export const Account: React.FC<AccountProps> = () => {
 	const currUser = useAppSelector(selectCurrUser);
 	const dispatch = useAppDispatch();
+	const history = useHistory();
 
 	useEffect(() => {
 		dispatch(
@@ -24,6 +26,10 @@ export const Account: React.FC<AccountProps> = () => {
 			})
 		);
 	}, []);
+
+	function changePassword() {
+		history.push("/home/changePassword");
+	}
 
 	return (
 		<div
@@ -59,14 +65,8 @@ export const Account: React.FC<AccountProps> = () => {
 					text={currUser?.role === "ADMIN" ? "Admin" : "User"}
 					customColor="#1C518F"
 					fill
-					leads
-					// className={classNames(styles.tags)}
-					// onSelect={() => onSelect("hospital")}
-					// noBorder={leadType !== "hospital"}
 				/>
-				{/* <CustomTag >
-					{currUser?.role === "ADMIN" ? "Admin" : "User"}
-				</CustomTag> */}
+
 				<div style={{ display: "flex" }}>
 					<div style={{ fontWeight: "bolder", paddingRight: "5px" }}>
 						Email:{" "}
@@ -79,8 +79,13 @@ export const Account: React.FC<AccountProps> = () => {
 					</div>{" "}
 					<div>{currUser?.createdBy.toLowerCase()}</div>
 				</div>
-				{/* <span style={{ fontWeight: "bolder" }}>Created By: </span>{" "}
-				<span>{currUser?.createdBy}</span> */}
+			</div>
+			<div style={{ display: "flex" }}>
+				<CustomButton
+					isSecondary={false}
+					text="Change Password"
+					onClick={changePassword}
+				/>
 			</div>
 		</div>
 	);

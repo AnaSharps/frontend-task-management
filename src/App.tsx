@@ -7,17 +7,14 @@ import {
 	Switch,
 	Route,
 	Redirect,
-	useLocation,
 } from "react-router-dom";
-import { Dashboard } from "./screens/UserManagement";
+import { UserManagement } from "./screens/UserManagement";
 import { Home } from "./screens/Home";
 import { Signup } from "./screens/Signup";
 import { ForgotPass } from "./screens/ForgotPass";
 import { ChangePass } from "./screens/ChangePass";
 import { UnauthorisedForms } from "./screens/UnauthorisedForms";
-import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { selectStatus } from "./features/loading";
-import { authorizationInit } from "./features/authorization";
+import { useAppSelector } from "./app/hooks";
 import { AdminHome } from "./screens/AdminHome";
 import { selectMainContData } from "./features/mainContainerData";
 import { MainContainer } from "./components/MAinContainer";
@@ -70,19 +67,20 @@ function App() {
 													backString={mainContainerData.backstring}
 													title={mainContainerData.title}
 													searchBar={mainContainerData.search}
-													content={<Dashboard />}
+													content={<UserManagement />}
 												/>
 											)}
 										/>
 										<Route
 											path="/home/changePassword"
 											render={() => (
-												<MainContainer
-													backString={mainContainerData.backstring}
-													title={mainContainerData.title}
-													searchBar={mainContainerData.search}
-													content={<ChangePass />}
-												/>
+												<ChangePass />
+												// <MainContainer
+												// 	backString={mainContainerData.backstring}
+												// 	title={mainContainerData.title}
+												// 	searchBar={mainContainerData.search}
+												// 	content={<ChangePass />}
+												// />
 											)}
 										/>
 										<Route
@@ -115,30 +113,32 @@ function App() {
 													backString={mainContainerData.backstring}
 													title={mainContainerData.title}
 													searchBar={mainContainerData.search}
-													content={<Dashboard admin />}
+													content={<UserManagement admin />}
 												/>
 											)}
 										/>
 										<Route
 											path="/admin/addUser"
 											render={() => (
-												<MainContainer
-													backString={mainContainerData.backstring}
-													title={mainContainerData.title}
-													searchBar={mainContainerData.search}
-													content={<Signup admin />}
-												/>
+												<Signup admin />
+												// <MainContainer
+												// 	backString={mainContainerData.backstring}
+												// 	title={mainContainerData.title}
+												// 	searchBar={mainContainerData.search}
+												// 	content={<Signup admin />}
+												// />
 											)}
 										/>
 										<Route
 											path="/admin/changePassword"
 											render={() => (
-												<MainContainer
-													backString={mainContainerData.backstring}
-													title={mainContainerData.title}
-													searchBar={mainContainerData.search}
-													content={<ChangePass />}
-												/>
+												<ChangePass />
+												// <MainContainer
+												// 	backString={mainContainerData.backstring}
+												// 	title={mainContainerData.title}
+												// 	searchBar={mainContainerData.search}
+												// 	content={<ChangePass />}
+												// />
 											)}
 										/>
 										<Route

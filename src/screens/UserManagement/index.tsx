@@ -19,7 +19,7 @@ import { Avatar, Select } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { SearchUsersComponent } from "../../components/SearchUsersComponent";
 
-export interface DashboardProps {
+export interface UserManagementProps {
 	admin?: boolean;
 }
 
@@ -55,7 +55,9 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 	);
 };
 
-export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
+export const UserManagement: React.FC<UserManagementProps> = ({
+	admin = false,
+}) => {
 	const dispatch = useAppDispatch();
 	const users = useAppSelector(selectUserList);
 	const ofset = useAppSelector(selectOffset);
@@ -82,10 +84,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 		);
 	}, []);
 
-	function changePassword() {
-		history.push("/home/changePassword");
-	}
-
 	function deleteUser(email: string) {
 		dispatch(deleteUserInit(email));
 	}
@@ -99,14 +97,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 				flexDirection: "column",
 			}}
 		>
-			<div style={{ display: "flex" }}>
-				<CustomButton
-					isSecondary={false}
-					text="Change Password"
-					onClick={changePassword}
-				/>
-			</div>
-
 			<CustomCard title={<SearchUsersComponent />}>
 				{users?.map((user, idx) => {
 					return (

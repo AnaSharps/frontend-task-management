@@ -2,6 +2,7 @@ import { Button, ButtonProps as AntButtonProps } from "antd";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import classnames from "classnames";
 import React from "react";
+import { backgroundColor } from "../../app/constants";
 import styles from "./style.module.css";
 
 export interface ButtonProps extends AntButtonProps {
@@ -31,8 +32,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
 	style = {},
 	...props
 }) => {
-	const colorStyle = isSecondary ? "#209AE5" : "white";
-	const bgStyle = isSecondary ? "white" : "#209AE5";
+	const colorStyle = isSecondary ? backgroundColor : "white";
+	const bgStyle = isSecondary ? "white" : backgroundColor;
 	const iconRightStyle: object = {
 		display: iconRight ? "inline-flex" : undefined,
 		alignItems: iconRight ? "center" : undefined,
