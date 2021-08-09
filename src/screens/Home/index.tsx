@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authorizationInit, adminAuthInit } from "../../features/authorization";
 import { selectAdminChanged, selectIsAdmin } from "../../features/isAdmin";
 import { selectStatus } from "../../features/loading";
-import { selectLoginChanged } from "../../features/login";
+import { selectCurrUser, selectLoginChanged } from "../../features/login";
 import styles from "./style.module.css";
 
 export interface HomeProps {}
@@ -15,34 +15,21 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 	const history = useHistory();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
-	const status = useAppSelector(selectStatus);
-	const loginchanged = useAppSelector(selectLoginChanged);
-	const adminChanged = useAppSelector(selectAdminChanged);
-	const isAdmin = useAppSelector(selectIsAdmin);
+
+	const currUser = useAppSelector(selectCurrUser);
 
 	const [once, setOnce] = useState(true);
 
 	useEffect(() => {
-		if (once || loginchanged || adminChanged) {
-			if (isAdmin) {
-				console.log("admin here");
-				dispatch(adminAuthInit());
-				setOnce(false);
-			} else {
-				console.log("normal here");
-				dispatch(authorizationInit());
-				setOnce(false);
-			}
+		if (once) {
+			dispatch(authorizationInit());
+			setOnce(false);
+		} else {
+			if (currUser) {
+				if (currUser.role === "ADMIN") history.push("/admin/loggedin");
+			} else history.push("/app/login");
 		}
-	}, [once, loginchanged, adminChanged]);
+	}, [once, currUser]);
 
-	return (
-		<>
-			{(once || loginchanged || adminChanged) && status === "failed"
-				? history.push("/app/login")
-				: !isAdmin
-				? props.children
-				: history.push("/admin/loggedin")}
-		</>
-	);
+	return <>{!once && currUser?.role === "NORMAL" && props.children}</>;
 };

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { adminAuthInit, authorizationInit } from "../../features/authorization";
 import { selectStatus } from "../../features/loading";
 import styles from "./style.module.css";
-import { selectLoginChanged } from "../../features/login";
+import { selectCurrUser, selectLoginChanged } from "../../features/login";
 import { selectAdminChanged, selectIsAdmin } from "../../features/isAdmin";
 
 export interface UnauthorisedFormsProps {}
@@ -14,39 +14,23 @@ export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
 }) => {
 	const [once, setOnce] = useState(true);
 
-	const status = useAppSelector(selectStatus);
-	const loginChanged = useAppSelector(selectLoginChanged);
-	const adminChanged = useAppSelector(selectAdminChanged);
-	const isAdmin = useAppSelector(selectIsAdmin);
+	const currUser = useAppSelector(selectCurrUser);
 
 	const dispatch = useAppDispatch();
 	// const location = useLocation();
 	const history = useHistory();
 
 	useEffect(() => {
-		console.log(once);
-		console.log(loginChanged);
-		if (once || loginChanged || adminChanged) {
-			if (isAdmin) {
-				console.log("admin at form");
-				dispatch(adminAuthInit());
-				setOnce(false);
-			} else {
-				console.log("normal at form");
-				dispatch(authorizationInit());
-				setOnce(false);
+		if (once) {
+			dispatch(authorizationInit());
+			setOnce(false);
+		} else {
+			if (currUser) {
+				if (currUser.role === "ADMIN") history.push("/admin/loggedin");
+				else history.push("/home/loggedin");
 			}
 		}
-	}, [once, loginChanged, isAdmin, adminChanged]);
+	}, [currUser, once]);
 
-	return (
-		<>
-			{/* {status === "processing" && <Spin />} */}
-			{(once || loginChanged || adminChanged) && status === "passed"
-				? isAdmin
-					? history.push("/admin/loggedin")
-					: history.push("/home/loggedin")
-				: props.children}
-		</>
-	);
+	return <>{!once && !currUser && props.children}</>;
 };
