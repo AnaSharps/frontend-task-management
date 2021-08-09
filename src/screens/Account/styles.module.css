@@ -1,0 +1,30 @@
+.accountStatus {
+	min-width: fit-content;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 24px;
+	/* identical to box height, or 150% */
+	display: none;
+	text-align: right;
+	letter-spacing: 0.15px;
+	/* Monochrome/Black */
+	color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+	.accountStatus {
+		display: initial;
+	}
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	height: 40px;
+}
+
+.avatar {
+	margin-left: 8px !important;
+}

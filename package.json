@@ -16,6 +16,7 @@
     "antd": "^4.16.8",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "color": "^3.2.1",
     "formik": "^2.2.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -65,6 +66,7 @@
     "@storybook/node-logger": "^6.3.4",
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.4",
+    "@types/color": "^3.0.2",
     "@types/react-router-dom": "^5.1.8"
   }
 }

@@ -1,0 +1,25 @@
+.tag{
+    height: fit-content !important;
+    width: fit-content;
+    /* padding: 4px 10px; */
+}
+
+.tagWithIcon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content !important;
+    height: fit-content;
+    /* padding:4px 10px; */
+}
+
+
+.tagWithIcon > div:nth-child(1){
+    padding-right: 5px !important;
+}
+/* 
+.tagWithIcon > span:nth-child(2){
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 20px;
+} */

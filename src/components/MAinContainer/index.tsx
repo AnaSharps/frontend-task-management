@@ -23,7 +23,6 @@ export const MainContainer: React.FC<MainContainerProps> = ({
 	title,
 	searchBar,
 	onSearch,
-	backString = "/",
 }) => {
 	const history = useHistory();
 

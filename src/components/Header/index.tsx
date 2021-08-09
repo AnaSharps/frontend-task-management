@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { logoutInit } from "../../features/login";
 import { TitleBar } from "../TitleBar";
 import { LeftOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom";
 
 export interface HeaderProps {
 	title?: string;

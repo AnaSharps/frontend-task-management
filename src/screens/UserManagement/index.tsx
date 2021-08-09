@@ -16,7 +16,7 @@ import { deleteUserInit } from "../../features/deregistration";
 import { CustomCard } from "../../components/Card";
 import { setMainContainerData } from "../../features/mainContainerData";
 import { Avatar, Select } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { SearchUsersComponent } from "../../components/SearchUsersComponent";
 
 export interface DashboardProps {
@@ -82,10 +82,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 		);
 	}, []);
 
-	function addUser() {
-		history.push("/admin/addUser");
-	}
-
 	function changePassword() {
 		history.push("/home/changePassword");
 	}
@@ -104,9 +100,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 			}}
 		>
 			<div style={{ display: "flex" }}>
-				{admin && (
-					<CustomButton isSecondary={false} text="Add User" onClick={addUser} />
-				)}
 				<CustomButton
 					isSecondary={false}
 					text="Change Password"
@@ -145,7 +138,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 								<div className={styles.deleteButton}>
 									<CustomButton
 										isSecondary={false}
-										text="Delete User"
+										text=" Delete"
+										prefixIcon={<DeleteOutlined />}
 										onClick={() => deleteUser(user.email)}
 										style={{ right: 0 }}
 									/>

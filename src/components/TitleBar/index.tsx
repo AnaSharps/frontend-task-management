@@ -29,5 +29,10 @@ export const TitleBar: React.FC<TitleBarProps> = ({
 	white,
 }) => {
 	console.log(title);
-	return <PageHeader title={title} style={{ paddingInline: "16px" }} />;
+	return (
+		<PageHeader
+			title={title}
+			style={{ paddingInline: "16px", fontWeight: "bolder" }}
+		/>
+	);
 };

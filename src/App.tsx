@@ -21,6 +21,7 @@ import { authorizationInit } from "./features/authorization";
 import { AdminHome } from "./screens/AdminHome";
 import { selectMainContData } from "./features/mainContainerData";
 import { MainContainer } from "./components/MAinContainer";
+import { Account } from "./screens/Account";
 
 function App() {
 	const mainContainerData = useAppSelector(selectMainContData);
@@ -85,6 +86,17 @@ function App() {
 											)}
 										/>
 										<Route
+											path="/home/account"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Account />}
+												/>
+											)}
+										/>
+										<Route
 											path="/home"
 											render={() => <Redirect to="/home/loggedin" />}
 										/>
@@ -97,7 +109,7 @@ function App() {
 								<Router>
 									<Switch>
 										<Route
-											path={["/admin", "/admin/loggedin"]}
+											path="/admin/loggedin"
 											render={() => (
 												<MainContainer
 													backString={mainContainerData.backstring}
@@ -126,6 +138,17 @@ function App() {
 													title={mainContainerData.title}
 													searchBar={mainContainerData.search}
 													content={<ChangePass />}
+												/>
+											)}
+										/>
+										<Route
+											path="/admin/account"
+											render={() => (
+												<MainContainer
+													backString={mainContainerData.backstring}
+													title={mainContainerData.title}
+													searchBar={mainContainerData.search}
+													content={<Account />}
 												/>
 											)}
 										/>

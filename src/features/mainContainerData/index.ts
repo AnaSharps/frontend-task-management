@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import React from "react";
 import { AppThunk, RootState } from "../../app/store";
 import { changeLoading } from "../loading";
 
@@ -6,6 +7,8 @@ export interface MainContainerData {
 	title: string;
 	search: boolean;
 	backstring?: string;
+	addButton?: Function | false;
+	addButtonText?: string | false;
 }
 
 const initialState: MainContainerData = {
@@ -22,6 +25,8 @@ export const mainContDataSlice = createSlice({
 			state.title = action.payload.title;
 			state.search = action.payload.search;
 			state.backstring = action.payload.backstring;
+			state.addButton = action.payload.addButton;
+			state.addButtonText = action.payload.addButtonText;
 		},
 	},
 });
