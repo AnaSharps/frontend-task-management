@@ -1,41 +1,76 @@
 import React, { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { host } from "../../app/constants";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
 	getUsersInit,
 	selectDisplayNum,
 	selectOffset,
-	selectSearch,
 	selectTotalCount,
 	selectUserList,
-	setDisplay,
 	setOffset,
-	setSearch,
 } from "../../features/users";
 import styles from "./style.module.css";
 import { CustomButton } from "../../components/Button";
-import { CustomInput } from "../../components/CustomInput";
-import { selectStatus } from "../../features/loading";
-import { logoutInit } from "../../features/login";
+import { selectCurrUser } from "../../features/login";
 import { deleteUserInit } from "../../features/deregistration";
 import { CustomCard } from "../../components/Card";
 import { setMainContainerData } from "../../features/mainContainerData";
+import { Avatar, Select } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { SearchUsersComponent } from "../../components/SearchUsersComponent";
 
 export interface DashboardProps {
 	admin?: boolean;
 }
 
+const { Option } = Select;
+
+interface SearchComponentProps {
+	label: string;
+	setSelectedValue: Function;
+}
+
+const SearchComponent: React.FC<SearchComponentProps> = ({
+	label,
+	setSelectedValue,
+}) => {
+	const users = useAppSelector(selectUserList);
+
+	function handleChange(val: string) {
+		setSelectedValue(val);
+	}
+
+	return (
+		<>
+			<div>{label}</div>
+			<Select defaultValue="all" style={{ width: 120 }} onChange={handleChange}>
+				<Option value="all">All</Option>
+				{users?.map((user) => (
+					<Option value={user.name} key={user.email}>
+						{user.name}
+					</Option>
+				))}
+			</Select>
+		</>
+	);
+};
+
 export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 	const dispatch = useAppDispatch();
 	const users = useAppSelector(selectUserList);
-	const search = useAppSelector(selectSearch);
 	const ofset = useAppSelector(selectOffset);
 	const display = useAppSelector(selectDisplayNum);
 	const total = useAppSelector(selectTotalCount);
+	const currUser = useAppSelector(selectCurrUser);
 
 	const history = useHistory();
 	const location = useLocation();
+
+	function searchUsers(viewNext: number = 0) {
+		if (viewNext === 1) dispatch(setOffset(ofset + display));
+		else if (viewNext === -1) dispatch(setOffset(ofset - display));
+		dispatch(getUsersInit());
+	}
 
 	useEffect(() => {
 		dispatch(
@@ -49,20 +84,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 
 	function addUser() {
 		history.push("/admin/addUser");
-	}
-
-	function handleChange(val: number | string, type: "display" | "search") {
-		if (type === "display" && typeof val === "number") {
-			dispatch(setDisplay(val));
-		} else if (typeof val === "string" && type === "search") {
-			dispatch(setSearch(val));
-		}
-	}
-
-	function searchUsers(viewNext: number = 0) {
-		if (viewNext === 1) dispatch(setOffset(ofset + display));
-		else if (viewNext === -1) dispatch(setOffset(ofset - display));
-		dispatch(getUsersInit());
 	}
 
 	function changePassword() {
@@ -92,92 +113,43 @@ export const Dashboard: React.FC<DashboardProps> = ({ admin = false }) => {
 					onClick={changePassword}
 				/>
 			</div>
-			<CustomInput
-				placeholder={"Search"}
-				type="text"
-				value={search ? search : ""}
-				backgroundColor="white"
-				onChange={(e) => handleChange(e.target.value, "search")}
-			/>
-			<CustomButton
-				onClick={() => searchUsers()}
-				text="Search"
-				isSecondary={false}
-			/>
-			<CustomCard>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "row",
-						padding: "24px",
-						fontWeight: "bold",
-					}}
-				>
-					<span
-						style={{
-							width: "10%",
-						}}
-					>
-						S.no.
-					</span>
-					<span
-						style={{
-							width: "30%",
-						}}
-					>
-						Name{" "}
-					</span>
-					<span
-						style={{
-							width: "30%",
-						}}
-					>
-						Email
-					</span>
-					<span>Created By</span>
-				</div>
+
+			<CustomCard title={<SearchUsersComponent />}>
 				{users?.map((user, idx) => {
 					return (
 						<div
+							className={styles.userRow}
+							key={idx}
 							style={{
 								display: "flex",
-								flexDirection: "row",
-								// justifyContent: "space-between",
 								padding: "24px",
 							}}
 						>
-							<span
+							<Avatar
+								size={32}
 								style={{
-									width: "10%",
+									backgroundColor: "#c1b6ca",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									borderRadius: "16px",
 								}}
-							>
-								{idx + 1}
-							</span>
-							<span
-								style={{
-									width: "30%",
-								}}
-							>
-								{user.name.toLowerCase()}{" "}
-							</span>
-							<span
-								style={{
-									width: "30%",
-								}}
-							>
-								{user.email.toLowerCase()}{" "}
-							</span>
-							<span>{user.createdBy.toLowerCase()} </span>
+								icon={<UserOutlined />}
+							/>
+							<div style={{ marginLeft: "16px", flexGrow: 1 }}>
+								<div>{user.name.toUpperCase()}</div>
+								<div>{user.email.toLowerCase()}</div>
+							</div>
 
-							{admin && (
-								<>
+							{currUser?.role === "ADMIN" && (
+								<div className={styles.deleteButton}>
 									<CustomButton
 										isSecondary={false}
 										text="Delete User"
 										onClick={() => deleteUser(user.email)}
-										style={{ width: "5%", left: "95%" }}
+										style={{ right: 0 }}
 									/>
-								</>
+								</div>
 							)}
 						</div>
 					);

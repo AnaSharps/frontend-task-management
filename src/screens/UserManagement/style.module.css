@@ -1,0 +1,13 @@
+.deleteButton {
+	display: none;
+}
+
+.userRow:hover {
+	z-index: 999;
+	box-shadow: 2px 2px 5px rgb(187, 184, 184);
+	/* background-color: grey; */
+}
+
+.userRow:hover > * {
+	display: block;
+}
