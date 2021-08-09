@@ -1,6 +1,7 @@
 import React from "react";
 import { Skeleton, Card } from "antd";
 import styles from "./style.module.css";
+import { backgroundColor } from "../../app/constants";
 
 export interface SidebarItemProps {
 	loading?: boolean;
@@ -44,7 +45,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 					<span
 						className={styles.cardText}
 						style={{
-							color: selected ? "rgba(32, 154, 229, 1)" : "#fff",
+							color: selected ? backgroundColor : "#fff",
 						}}
 					>
 						{text}
@@ -54,12 +55,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 							notification ? styles.notification : styles.notVisible
 						}`}
 						style={{
-							background: selected ? "rgba(32, 154, 229, 1)" : "#fff",
+							background: selected ? backgroundColor : "#fff",
 						}}
 					>
 						<span
 							style={{
-								color: !selected ? "rgba(32, 154, 229, 1)" : "#fff",
+								color: !selected ? backgroundColor : "#fff",
 							}}
 						>
 							{notification}
