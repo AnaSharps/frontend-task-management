@@ -45,6 +45,9 @@ function App() {
 										<Route path="/app/resetPass/*">
 											<ChangePass forgot />
 										</Route>
+										<Route path="/">
+											<Redirect to="/app/login" />
+										</Route>
 									</Switch>
 								</Router>
 							</UnauthorisedForms>
@@ -58,6 +61,12 @@ function App() {
 										</Route>
 										<Route path="/home/changePassword">
 											<ChangePass />
+										</Route>
+										<Route path="/">
+											<Redirect to="/home/loggedin" />
+										</Route>
+										<Route path="/">
+											<Redirect to="/home/loggedin" />
 										</Route>
 									</Switch>
 								</Router>
@@ -76,9 +85,15 @@ function App() {
 										<Route path="/admin/changePassword">
 											<ChangePass />
 										</Route>
+										<Route path="/">
+											<Redirect to="/admin/loggedin" />
+										</Route>
 									</Switch>
 								</Router>
 							</AdminHome>
+						</Route>
+						<Route path="/">
+							<Redirect to="/app/login" />
 						</Route>
 					</Switch>
 				</Router>
