@@ -1,11 +1,15 @@
 import { Button, Card } from "antd";
 import React, { useEffect, useState } from "react";
+import { backgroundColor } from "../../app/constants";
 import { useAppDispatch } from "../../app/hooks";
+import { TaskList } from "../../components/TaskManagementComponents/List";
+import { TaskOverview } from "../../components/TaskManagementComponents/Overview";
 import { RadioTasks } from "../../components/TaskManagementComponents/RadioTasks";
 // import { CustomButton } from "../../components/Button";
 // import { RadioTasks } from "../../components/RadioTasks";
 import { SearchComponent } from "../../components/TaskManagementComponents/SearchTasksComponent";
 import { setMainContainerData } from "../../features/mainContainerData";
+import { getTasksInit } from "../../features/taskManagement";
 import styles from "./style.module.css";
 
 export interface TaskManagementProps {}
@@ -42,11 +46,12 @@ export const TaskManagement: React.FC<TaskManagementProps> = () => {
 				backstring: "",
 			})
 		);
+		dispatch(getTasksInit());
 	}, []);
 	return (
 		<Card
 			style={{
-				backgroundColor: "white",
+				background: "#f1f1f1",
 				height: "90%",
 				display: "flex",
 				flexDirection: "column",
@@ -61,13 +66,14 @@ export const TaskManagement: React.FC<TaskManagementProps> = () => {
 			/>
 			<div
 				style={{
-					backgroundColor: "#f1eef3",
+					backgroundColor: "white",
 					borderRadius: "10px",
 					flexGrow: 1,
 					padding: "16px",
 				}}
 			>
-				{selectedView === "List" && <SearchComponent />}
+				{selectedView === "List" && <TaskList />}
+				{selectedView === "Overview" && <TaskOverview />}
 			</div>
 		</Card>
 	);

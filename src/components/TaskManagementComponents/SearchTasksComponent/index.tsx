@@ -32,8 +32,6 @@ export const SearchComponent: React.FC<SearchComponentProps> = () => {
 			<div style={{ display: "flex", padding: 0, margin: 0, width: "50%" }}>
 				<CustomInput
 					placeholder="Search by title or description..."
-					// width="50%"
-					// containerStyle={{ width: "50%" }}
 					// value={search}
 					// onChange={(e) => handleChange(e.target.value, "search")}
 				/>
