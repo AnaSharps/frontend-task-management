@@ -1,0 +1,10 @@
+.unselectedView {
+	background-color: rgb(51, 25, 75);
+	color: white;
+}
+
+.selectedView {
+	background-color: white;
+	color: rgb(51, 25, 75);
+	border: "0px solid white";
+}

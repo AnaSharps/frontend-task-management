@@ -21,7 +21,7 @@ export interface InputProps extends AntInputProps {
 
 export const CustomInput: React.FC<InputProps> = ({
 	placeholder = "",
-	size = "large",
+	size = "small",
 	backgroundColor = "rgba(0,0,0,0)",
 	className = "",
 	bordered = false,
@@ -41,7 +41,7 @@ export const CustomInput: React.FC<InputProps> = ({
 					rows={5}
 					placeholder={placeholder}
 					className={classnames(styles.input, className)}
-					bordered={bordered}
+					bordered={false}
 					style={{ backgroundColor, width, ...style }}
 					defaultValue={props.defaultValue}
 					onChange={onMultilineChange}
@@ -51,8 +51,14 @@ export const CustomInput: React.FC<InputProps> = ({
 					placeholder={placeholder}
 					className={classnames(styles.input, className)}
 					size={size}
-					bordered={bordered}
-					style={{ backgroundColor, width, ...style }}
+					bordered={false}
+					style={{
+						backgroundColor,
+						width,
+						border: "1px solid grey",
+						borderRadius: "5px",
+						...style,
+					}}
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 				/>

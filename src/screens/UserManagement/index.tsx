@@ -23,38 +23,6 @@ export interface UserManagementProps {
 	admin?: boolean;
 }
 
-const { Option } = Select;
-
-interface SearchComponentProps {
-	label: string;
-	setSelectedValue: Function;
-}
-
-const SearchComponent: React.FC<SearchComponentProps> = ({
-	label,
-	setSelectedValue,
-}) => {
-	const users = useAppSelector(selectUserList);
-
-	function handleChange(val: string) {
-		setSelectedValue(val);
-	}
-
-	return (
-		<>
-			<div>{label}</div>
-			<Select defaultValue="all" style={{ width: 120 }} onChange={handleChange}>
-				<Option value="all">All</Option>
-				{users?.map((user) => (
-					<Option value={user.name} key={user.email}>
-						{user.name}
-					</Option>
-				))}
-			</Select>
-		</>
-	);
-};
-
 export const UserManagement: React.FC<UserManagementProps> = ({
 	admin = false,
 }) => {

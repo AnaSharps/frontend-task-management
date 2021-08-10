@@ -9,6 +9,7 @@ import isAdminReducer from "../features/isAdmin";
 import loginStateReducer from "../features/login";
 import mainContainerReducer from "../features/mainContainerData";
 import dashboardReducer from "../features/dashboard";
+import taskManagementReducer from "../features/taskManagement";
 
 export const store = configureStore({
 	reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
 		login: loginStateReducer,
 		mainContData: mainContainerReducer,
 		dashboard: dashboardReducer,
+		tasks: taskManagementReducer,
 	},
 });
 

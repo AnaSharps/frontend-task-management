@@ -22,7 +22,7 @@ export interface UserListState {
 
 const initialState: UserListState = {
 	users: [],
-	display: 6,
+	display: 5,
 	ofset: 0,
 	search: "",
 	totalCount: 0,

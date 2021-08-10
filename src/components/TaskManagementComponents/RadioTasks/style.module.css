@@ -1,0 +1,39 @@
+.radioGroup > label {
+	outline: none;
+	border: none !important;
+	border-bottom: 2px solid #c7c7c7 !important;
+	color: rgba(151, 151, 151, 1) !important;
+	background-color: transparent !important;
+	transition: border-bottom 0.15s ease-out;
+	min-height: 36px !important;
+	height: fit-content !important;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.radioGroup > label *:focus:active:hover {
+	color: black !important;
+}
+
+.radioGroup > label[class*="-checked"] {
+	border-bottom: 2px solid #32194a !important;
+	color: #32194a !important;
+	font-weight: bolder;
+}
+
+.radioGroup * {
+	box-shadow: none !important;
+}
+
+.radioGroup *::before {
+	content: none !important;
+}
+.block {
+	display: flex;
+	width: 100%;
+}
+.block > label {
+	flex-grow: 1;
+	padding: 0;
+}

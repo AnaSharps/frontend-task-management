@@ -1,0 +1,22 @@
+.dropdownContainer {
+	background-color: rgba(0, 0, 0, 0.08);
+	border-radius: 3px;
+	width: 50%;
+	border: solid 0.5px rgba(0, 0, 0, 0.08);
+	transition: all 0.15s ease-out;
+}
+.selectedDropdown {
+	border: solid 0.5px black;
+	background-color: white;
+}
+.select {
+	width: 100%;
+}
+.select > div span {
+	font-size: 16px;
+	margin-left: 5px;
+}
+.select > span:nth-last-child(1) {
+	padding-right: 21px;
+	color: black !important;
+}

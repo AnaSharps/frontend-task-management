@@ -30,7 +30,7 @@ export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
 				else history.push("/home/dashboard");
 			}
 		}
-	}, [currUser, once]);
+	}, [currUser]);
 
 	return <>{!once && !currUser && props.children}</>;
 };
