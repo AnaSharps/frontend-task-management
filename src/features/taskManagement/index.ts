@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dateFormat } from "highcharts";
+import dateFormat from "dateformat";
 import { AppThunk, RootState } from "../../app/store";
 import { TaskType } from "../dashboard";
 import { changeLoading } from "../loading";
-import { getTasks } from "./taskManagementAPI";
+import { selectCurrUser } from "../login";
+import { createTask, getTasks } from "./taskManagementAPI";
 
 export interface TaskState {
 	getTasks: {
@@ -102,6 +103,33 @@ export const getTasksInit = (): AppThunk => async (dispatch, getState) => {
 		dispatch(getTasksSuccess(response));
 	} catch (error) {
 		dispatch(getTasksFailed(error));
+	}
+};
+export const addNewTaskSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("passed"));
+	dispatch(getTasksInit());
+};
+
+export const addNewTaskFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const addNewTaskInit = (task: {
+	name: string;
+	desc: string;
+	dueDate: string;
+	assignee: string;
+}): AppThunk => async (dispatch) => {
+	dispatch(changeLoading("processing"));
+	try {
+		const date = dateFormat(task.dueDate, "yyyy-mm-dd HH:MM:ss");
+		// console.log(date);
+		// console.log(task.dueDate);
+		const response = await createTask({ ...task, dueDate: date });
+		dispatch(addNewTaskSuccess(response));
+	} catch (error) {
+		dispatch(addNewTaskFailed(error));
 	}
 };
 

@@ -41,7 +41,7 @@ export const CustomInput: React.FC<InputProps> = ({
 					rows={5}
 					placeholder={placeholder}
 					className={classnames(styles.input, className)}
-					bordered={false}
+					bordered={bordered}
 					style={{ backgroundColor, width, ...style }}
 					defaultValue={props.defaultValue}
 					onChange={onMultilineChange}
@@ -51,7 +51,7 @@ export const CustomInput: React.FC<InputProps> = ({
 					placeholder={placeholder}
 					className={classnames(styles.input, className)}
 					size={size}
-					bordered={false}
+					bordered={bordered}
 					style={{
 						backgroundColor,
 						width,

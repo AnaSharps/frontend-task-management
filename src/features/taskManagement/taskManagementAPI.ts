@@ -16,6 +16,18 @@ export function getTasks(credentials: {
 	);
 }
 
-export function getMyStats() {
-	return axios.get(`${host}/api/myStats`, { withCredentials: true });
+export function createTask(task: {
+	name: string;
+	desc: string;
+	dueDate: string;
+	assignee: string;
+}) {
+	console.log(task);
+	return axios.post(
+		`${host}/api/createTask`,
+		{
+			...task,
+		},
+		{ withCredentials: true }
+	);
 }

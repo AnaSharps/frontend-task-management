@@ -8,8 +8,6 @@ import {
 	selectGetTasksAssignee,
 	selectGetTasksAssignor,
 	selectGetTasksKeyword,
-	setGetTasksAssignee,
-	setGetTasksAssignor,
 	setGetTasksKeywords,
 } from "../../../features/taskManagement";
 import { selectUserList } from "../../../features/users";

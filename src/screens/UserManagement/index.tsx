@@ -73,7 +73,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({
 							key={idx}
 							style={{
 								display: "flex",
-								padding: "24px",
+								padding: "10px",
 							}}
 						>
 							<Avatar
