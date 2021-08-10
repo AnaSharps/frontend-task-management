@@ -105,25 +105,21 @@ export const getTasksInit = (): AppThunk => async (dispatch, getState) => {
 	}
 };
 
-// export const getMyStatsSuccess = (response: any): AppThunk => (dispatch) => {
-// 	dispatch(changeLoading("passed"));
-// 	dispatch(setMyStats(response.data.stats));
-// };
+export const searchAssignee = (email: string): AppThunk => (
+	dispatch,
+	getState
+) => {
+	dispatch(setGetTasksAssignee(email));
+	dispatch(getTasksInit());
+};
 
-// export const getMyStatsFailed = (error: any): AppThunk => (dispatch) => {
-// 	dispatch(changeLoading("failed"));
-// 	// dispatch(setError(error));
-// };
-
-// export const getMyStatsInit = (): AppThunk => async (dispatch) => {
-// 	dispatch(changeLoading("processing"));
-// 	try {
-// 		const response = await getMyStats();
-// 		dispatch(getMyStatsSuccess(response));
-// 	} catch (error) {
-// 		dispatch(getMyStatsFailed(error));
-// 	}
-// };
+export const searchAssignor = (email: string): AppThunk => (
+	dispatch,
+	getState
+) => {
+	dispatch(setGetTasksAssignor(email));
+	dispatch(getTasksInit());
+};
 
 export const selectGetTasksDisplay = (state: RootState) =>
 	state.tasks.getTasks.display;

@@ -14,6 +14,7 @@ export interface DropdownProps {
 	onSelect?: Function;
 	value?: string;
 	name?: string;
+	defaultValue?: string;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -24,6 +25,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 	onSelect = (val: string) => val,
 	value,
 	name,
+	defaultValue,
 }) => {
 	const [selected, setSelected] = useState(!!value);
 	return (
@@ -35,6 +37,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 			<Select
 				className={styles.select}
 				showSearch
+				defaultValue={defaultValue}
 				id={name}
 				value={value}
 				bordered={false}
