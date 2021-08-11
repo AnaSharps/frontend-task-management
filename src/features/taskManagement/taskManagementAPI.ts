@@ -31,3 +31,25 @@ export function createTask(task: {
 		{ withCredentials: true }
 	);
 }
+
+export function getTaskStats(assignee: string) {
+	console.log(assignee);
+	return axios.post(
+		`${host}/api/taskStats`,
+		{
+			assignee,
+		},
+		{ withCredentials: true }
+	);
+}
+
+export function getTodaysStats(assignee: string) {
+	console.log(assignee);
+	return axios.post(
+		`${host}/api/todaysStats`,
+		{
+			assignee,
+		},
+		{ withCredentials: true }
+	);
+}

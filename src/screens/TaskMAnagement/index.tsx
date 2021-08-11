@@ -1,15 +1,20 @@
 import { Button, Card } from "antd";
 import React, { useEffect, useState } from "react";
 import { backgroundColor } from "../../app/constants";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { TaskList } from "../../components/TaskManagementComponents/List";
 import { TaskOverview } from "../../components/TaskManagementComponents/Overview";
 import { RadioTasks } from "../../components/TaskManagementComponents/RadioTasks";
 // import { CustomButton } from "../../components/Button";
 // import { RadioTasks } from "../../components/RadioTasks";
 import { SearchComponent } from "../../components/TaskManagementComponents/SearchTasksComponent";
+import { selectCurrUser } from "../../features/login";
 import { setMainContainerData } from "../../features/mainContainerData";
-import { getTasksInit } from "../../features/taskManagement";
+import {
+	getTasksInit,
+	getTaskStatsInit,
+	getTodaysStatsInit,
+} from "../../features/taskManagement";
 import styles from "./style.module.css";
 
 export interface TaskManagementProps {}
@@ -36,6 +41,8 @@ const RadioTitle: React.FC<RadioTitleProps> = ({
 
 export const TaskManagement: React.FC<TaskManagementProps> = () => {
 	const [selectedView, setSelectedView] = useState<"List" | "Overview">("List");
+
+	const currUser = useAppSelector(selectCurrUser);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -47,6 +54,8 @@ export const TaskManagement: React.FC<TaskManagementProps> = () => {
 			})
 		);
 		dispatch(getTasksInit());
+		dispatch(getTaskStatsInit(currUser ? currUser.email : ""));
+		dispatch(getTodaysStatsInit(currUser ? currUser.email : ""));
 	}, []);
 	return (
 		<Card

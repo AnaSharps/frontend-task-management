@@ -37,20 +37,16 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 				colorByPoint: true,
 				data: [
 					{
-						name: "Pending (No Activity)",
-						y: myStats ? myStats.pendingNoActivity : 0,
+						name: "In Progress",
+						y: myStats ? myStats.inProgress : 0,
 					},
 					{
-						name: "Pending (In Progress)",
-						y: myStats ? myStats.pendingInProgress : 0,
+						name: "No Activity",
+						y: myStats ? myStats.noActivity : 0,
 					},
 					{
-						name: "Overdue (No Activity)",
-						y: myStats ? myStats.overdueNoActivity : 0,
-					},
-					{
-						name: "Overdue (In Progress)",
-						y: myStats ? myStats.overdueInProgress : 0,
+						name: "Overdue",
+						y: myStats ? myStats.overdue : 0,
 					},
 					{
 						name: "Completed (On Time)",
@@ -64,6 +60,8 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 			},
 		],
 	};
+
+	console.log(config);
 
 	useEffect(() => {
 		const container = document.querySelector(".highcharts-container");

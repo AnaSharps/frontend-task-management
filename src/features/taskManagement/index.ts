@@ -3,8 +3,12 @@ import dateFormat from "dateformat";
 import { AppThunk, RootState } from "../../app/store";
 import { TaskType } from "../dashboard";
 import { changeLoading } from "../loading";
-import { selectCurrUser } from "../login";
-import { createTask, getTasks } from "./taskManagementAPI";
+import {
+	createTask,
+	getTasks,
+	getTaskStats,
+	getTodaysStats,
+} from "./taskManagementAPI";
 
 export interface TaskState {
 	getTasks: {
@@ -21,6 +25,23 @@ export interface TaskState {
 		completed: TaskType[];
 		overdue: TaskType[];
 	} | null;
+	taskStats:
+		| {
+				date: string;
+				completedOnTime: number;
+				completedAfterDeadline: number;
+				overdue: number;
+				allDue: number;
+		  }[]
+		| null;
+	todaysStats: {
+		total: number;
+		noActivity: number;
+		inProgress: number;
+		overdue: number;
+		completedOnTime: number;
+		completedAfterDeadline: number;
+	} | null;
 }
 
 const initialState: TaskState = {
@@ -33,6 +54,8 @@ const initialState: TaskState = {
 		ofset: 0,
 	},
 	allTasks: null,
+	taskStats: null,
+	todaysStats: null,
 };
 
 export const TaskManagementSlice = createSlice({
@@ -60,6 +83,15 @@ export const TaskManagementSlice = createSlice({
 		setAllTasks: (state, action: PayloadAction<TaskState["allTasks"]>) => {
 			state.allTasks = action.payload;
 		},
+		setTaskStats: (state, action: PayloadAction<TaskState["taskStats"]>) => {
+			state.taskStats = action.payload;
+		},
+		setTodaysStats: (
+			state,
+			action: PayloadAction<TaskState["todaysStats"]>
+		) => {
+			state.todaysStats = action.payload;
+		},
 	},
 });
 
@@ -71,6 +103,8 @@ export const {
 	setGetTasksKeywords,
 	setGetTasksOffset,
 	setAllTasks,
+	setTaskStats,
+	setTodaysStats,
 } = TaskManagementSlice.actions;
 
 export const getTasksSuccess = (response: any): AppThunk => (dispatch) => {
@@ -105,6 +139,61 @@ export const getTasksInit = (): AppThunk => async (dispatch, getState) => {
 		dispatch(getTasksFailed(error));
 	}
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const getTaskStatsSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("passed"));
+	console.log(response.data);
+	dispatch(setTaskStats(response.data.stats));
+};
+
+export const getTaskStatsFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const getTaskStatsInit = (assignee: string): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	dispatch(changeLoading("processing"));
+	dispatch(setTaskStats(null));
+	try {
+		console.log("hello");
+		const response = await getTaskStats(assignee);
+		dispatch(getTaskStatsSuccess(response));
+	} catch (error) {
+		dispatch(getTaskStatsFailed(error));
+	}
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const getTodaysStatsSuccess = (response: any): AppThunk => (
+	dispatch
+) => {
+	dispatch(changeLoading("passed"));
+	dispatch(setTodaysStats(response.data.stats));
+};
+
+export const getTodaysStatsFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const getTodaysStatsInit = (assignee: string): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	dispatch(changeLoading("processing"));
+	try {
+		const response = await getTodaysStats(assignee);
+		dispatch(getTodaysStatsSuccess(response));
+	} catch (error) {
+		dispatch(getTodaysStatsFailed(error));
+	}
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const addNewTaskSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
 	dispatch(getTasksInit());
@@ -133,6 +222,7 @@ export const addNewTaskInit = (task: {
 	}
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const searchAssignee = (email: string): AppThunk => (
 	dispatch,
 	getState
@@ -162,5 +252,7 @@ export const selectGetTasksOffset = (state: RootState) =>
 export const selectGetTasksDueDate = (state: RootState) =>
 	state.tasks.getTasks.searchDueDate;
 export const selectAllTasks = (state: RootState) => state.tasks.allTasks;
+export const selectTaskStats = (state: RootState) => state.tasks.taskStats;
+export const selectTodaysStats = (state: RootState) => state.tasks.todaysStats;
 
 export default TaskManagementSlice.reducer;

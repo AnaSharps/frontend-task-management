@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 				setAccount(false);
 			}
 		}
-	}, []);
+	}, [location]);
 
 	return (
 		<Sider

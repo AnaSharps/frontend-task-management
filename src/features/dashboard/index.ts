@@ -27,10 +27,9 @@ export interface DashboardState {
 	} | null;
 	myStats: {
 		total: number;
-		pendingNoActivity: number;
-		pendingInProgress: number;
-		overdueNoActivity: number;
-		overdueInProgress: number;
+		noActivity: number;
+		inProgress: number;
+		overdue: number;
 		completedOnTime: number;
 		completedAfterDeadline: number;
 	} | null;
@@ -82,6 +81,7 @@ export const getTodaysTasksInit = (): AppThunk => async (dispatch) => {
 };
 export const getMyStatsSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
+	console.log(response.data.stats);
 	dispatch(setMyStats(response.data.stats));
 };
 
