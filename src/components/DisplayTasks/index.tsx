@@ -1,3 +1,4 @@
+import { MoreOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import React from "react";
 import { statusColors } from "../../app/constants";
@@ -69,7 +70,12 @@ export const DisplayTasks: React.FC<DisplayTasksProps> = ({
 										{status}
 									</span>
 								)}
-								<div></div>
+								<div
+									itemType="button"
+									onClick={() => console.log("clicked button", task.id)}
+								>
+									<MoreOutlined />
+								</div>
 							</div>
 							<span
 								style={{

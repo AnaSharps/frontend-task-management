@@ -6,7 +6,11 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authorizationInit, adminAuthInit } from "../../features/authorization";
 import { selectAdminChanged, selectIsAdmin } from "../../features/isAdmin";
 import { selectStatus } from "../../features/loading";
-import { selectCurrUser, selectLoginChanged } from "../../features/login";
+import {
+	selectCurrUser,
+	selectLoginChanged,
+	selectLoginStatus,
+} from "../../features/login";
 import styles from "./style.module.css";
 
 export interface AdminHomeProps {}
@@ -17,6 +21,7 @@ export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 	const dispatch = useAppDispatch();
 
 	const currUser = useAppSelector(selectCurrUser);
+	const loginStatus = useAppSelector(selectLoginStatus);
 	const [once, setOnce] = useState(true);
 
 	useEffect(() => {
@@ -25,20 +30,12 @@ export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 			dispatch(authorizationInit());
 			setOnce(false);
 		} else {
-			console.log("authorization done");
-			if (currUser) {
-				if (currUser.role === "NORMAL") {
-					console.log("in admin home, i am normal");
-					history.push("/home/dashboard");
-				}
-			} else {
-				console.log(
-					"in admin home, i am not logged in...redirection to app/login"
-				);
+			if (currUser && currUser.role === "NORMAL" && loginStatus === "passed")
+				history.push("/home/loggedin");
+			else if (!currUser && loginStatus === "passed")
 				history.push("/app/login");
-			}
 		}
-	}, [once, currUser]);
+	}, [currUser, loginStatus]);
 
 	return <>{!once && currUser?.role === "ADMIN" && props.children}</>;
 };

@@ -6,7 +6,11 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { authorizationInit, adminAuthInit } from "../../features/authorization";
 import { selectAdminChanged, selectIsAdmin } from "../../features/isAdmin";
 import { selectStatus } from "../../features/loading";
-import { selectCurrUser, selectLoginChanged } from "../../features/login";
+import {
+	selectCurrUser,
+	selectLoginChanged,
+	selectLoginStatus,
+} from "../../features/login";
 import styles from "./style.module.css";
 
 export interface HomeProps {}
@@ -17,6 +21,7 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 	const dispatch = useAppDispatch();
 
 	const currUser = useAppSelector(selectCurrUser);
+	const loginStatus = useAppSelector(selectLoginStatus);
 
 	const [once, setOnce] = useState(true);
 
@@ -25,11 +30,12 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 			dispatch(authorizationInit());
 			setOnce(false);
 		} else {
-			if (currUser) {
-				if (currUser.role === "ADMIN") history.push("/admin/dashboard");
-			} else history.push("/app/login");
+			if (currUser && currUser.role === "ADMIN" && loginStatus === "passed")
+				history.push("/admin/dashboard");
+			else if (!currUser && loginStatus === "passed")
+				history.push("/app/login");
 		}
-	}, [once, currUser]);
+	}, [loginStatus, currUser]);
 
 	return <>{!once && currUser?.role === "NORMAL" && props.children}</>;
 };

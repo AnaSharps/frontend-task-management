@@ -9,11 +9,13 @@ import { loginWithCredentials, logout } from "./loginAPI";
 export interface LoginState {
 	loginChanged: boolean;
 	currUser: User | null;
+	status: "processing" | "passed";
 }
 
 const initialState: LoginState = {
 	loginChanged: false,
 	currUser: null,
+	status: "passed",
 };
 
 export const LoginStateSlice = createSlice({
@@ -27,11 +29,16 @@ export const LoginStateSlice = createSlice({
 			state.loginChanged = false;
 		},
 		resetUser: (state) => {
-			console.log("user changed?");
+			// console.log("user changed?");
 			state.currUser = null;
+			state.status = "passed";
 		},
 		setCurrUser: (state, action: PayloadAction<LoginState["currUser"]>) => {
 			state.currUser = action.payload;
+			state.status = "passed";
+		},
+		setLoginStatus: (state, action: PayloadAction<LoginState["status"]>) => {
+			state.status = action.payload;
 		},
 	},
 });
@@ -41,22 +48,23 @@ export const {
 	resetLoginChanged,
 	resetUser,
 	setCurrUser,
+	setLoginStatus,
 } = LoginStateSlice.actions;
 
 export const loginSuccess = (response: any): AppThunk => (dispatch) => {
-	dispatch(changeLoading("passed"));
-	if (response.data.admin) {
-		dispatch(setAdmin(true));
-	} else {
-		dispatch(setAdmin(false));
-	}
-	dispatch(setAdminChanged());
-	dispatch(setLoginChanged());
+	// dispatch(changeLoading("passed"));
+	// if (response.data.admin) {
+	// dispatch(setAdmin(true));
+	// } else {
+	// dispatch(setAdmin(false));
+	// }
+	// dispatch(setAdminChanged());
+	// dispatch(setLoginChanged());
 	dispatch(setCurrUser(response.data.user));
 };
 
 export const loginFailed = (error: any): AppThunk => (dispatch) => {
-	dispatch(changeLoading("failed"));
+	dispatch(resetUser());
 	// dispatch(setError(error));
 };
 
@@ -64,7 +72,7 @@ export const loginInit = (credentials: {
 	email: string;
 	pass: string;
 }): AppThunk => async (dispatch) => {
-	dispatch(changeLoading("processing"));
+	dispatch(setLoginStatus("processing"));
 	try {
 		const response = await loginWithCredentials({ ...credentials });
 		dispatch(loginSuccess(response));
@@ -74,19 +82,19 @@ export const loginInit = (credentials: {
 };
 
 export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
-	dispatch(changeLoading("passed"));
+	// dispatch(changeLoading("passed"));
 	dispatch(setLoginChanged());
 	dispatch(resetUser());
 	// dispatch(authorizationInit());
 };
 
 export const logoutFailed = (error: any): AppThunk => (dispatch) => {
-	dispatch(changeLoading("failed"));
+	dispatch(setLoginStatus("passed"));
 	// dispatch(setError(error));
 };
 
 export const logoutInit = (): AppThunk => async (dispatch) => {
-	dispatch(changeLoading("processing"));
+	dispatch(setLoginStatus("processing"));
 	try {
 		const response = await logout();
 		dispatch(logoutSuccess(response));
@@ -98,5 +106,6 @@ export const logoutInit = (): AppThunk => async (dispatch) => {
 export const selectLoginChanged = (state: RootState) =>
 	state.login.loginChanged;
 export const selectCurrUser = (state: RootState) => state.login.currUser;
+export const selectLoginStatus = (state: RootState) => state.login.status;
 
 export default LoginStateSlice.reducer;

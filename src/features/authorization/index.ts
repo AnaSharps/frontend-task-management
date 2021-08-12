@@ -3,7 +3,12 @@ import { changeLoading } from "../loading";
 import { checkAdmin, checkLoggedIn } from "./authorizationAPI";
 import {} from "react-router";
 import { getUsersInit } from "../users";
-import { resetLoginChanged, resetUser, setCurrUser } from "../login";
+import {
+	resetLoginChanged,
+	resetUser,
+	setCurrUser,
+	setLoginStatus,
+} from "../login";
 import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 
 // export type AUTHSUCCESS = {
@@ -13,7 +18,7 @@ import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 
 export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(setCurrUser(response.data.user));
-	dispatch(changeLoading("passed"));
+	// dispatch(changeLoading("passed"));
 	dispatch(getUsersInit());
 	// dispatch(resetAdminChanged());
 	// dispatch(resetLoginChanged());
@@ -21,13 +26,13 @@ export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
 
 export const authorizationFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(resetUser());
-	dispatch(changeLoading("failed"));
+	// dispatch(changeLoading("failed"));
 	// dispatch(resetLoginChanged());
 	// dispatch(setError(error));
 };
 
 export const authorizationInit = (): AppThunk => async (dispatch) => {
-	dispatch(changeLoading("processing"));
+	dispatch(setLoginStatus("processing"));
 	try {
 		const response = await checkLoggedIn();
 		dispatch(authorizationSuccess(response));
