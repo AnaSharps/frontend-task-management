@@ -27,9 +27,10 @@ export const LoginStateSlice = createSlice({
 			state.loginChanged = false;
 		},
 		resetUser: (state) => {
+			console.log("user changed?");
 			state.currUser = null;
 		},
-		setCurrUser: (state, action: PayloadAction<User>) => {
+		setCurrUser: (state, action: PayloadAction<LoginState["currUser"]>) => {
 			state.currUser = action.payload;
 		},
 	},

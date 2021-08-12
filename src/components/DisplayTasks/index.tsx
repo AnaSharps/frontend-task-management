@@ -69,6 +69,7 @@ export const DisplayTasks: React.FC<DisplayTasksProps> = ({
 										{status}
 									</span>
 								)}
+								<div></div>
 							</div>
 							<span
 								style={{

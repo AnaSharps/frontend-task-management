@@ -61,7 +61,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = () => {
 		<Card
 			style={{
 				background: "#f1f1f1",
-				height: "90%",
+				// height: "90%",
 				display: "flex",
 				flexDirection: "column",
 				borderRadius: "10px",

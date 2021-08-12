@@ -21,14 +21,24 @@ export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 
 	useEffect(() => {
 		if (once) {
+			console.log("sending authorization");
 			dispatch(authorizationInit());
 			setOnce(false);
 		} else {
+			console.log("authorization done");
 			if (currUser) {
-				if (currUser.role === "NORMAL") history.push("/home/dashboard");
-			} else history.push("/app/login");
+				if (currUser.role === "NORMAL") {
+					console.log("in admin home, i am normal");
+					history.push("/home/dashboard");
+				}
+			} else {
+				console.log(
+					"in admin home, i am not logged in...redirection to app/login"
+				);
+				history.push("/app/login");
+			}
 		}
-	}, [currUser]);
+	}, [once, currUser]);
 
 	return <>{!once && currUser?.role === "ADMIN" && props.children}</>;
 };

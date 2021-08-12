@@ -1,4 +1,4 @@
-import { SearchOutlined } from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -50,7 +50,11 @@ export const SearchUsersComponent: React.FC = () => {
 			>
 				<span style={{ display: "flex", flexGrow: 1 }}>Total: {total}</span>
 				{currUser?.role === "ADMIN" && (
-					<CustomButton text="Add User" onClick={addUser} />
+					<CustomButton
+						text="Add User"
+						onClick={addUser}
+						icon={<PlusOutlined />}
+					/>
 				)}
 			</div>
 			{/* <div style={{ backgroundColor: "black", height: }}/> */}

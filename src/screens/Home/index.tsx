@@ -29,7 +29,7 @@ export const Home: React.FC<HomeProps> = ({ ...props }) => {
 				if (currUser.role === "ADMIN") history.push("/admin/dashboard");
 			} else history.push("/app/login");
 		}
-	}, [currUser]);
+	}, [once, currUser]);
 
 	return <>{!once && currUser?.role === "NORMAL" && props.children}</>;
 };

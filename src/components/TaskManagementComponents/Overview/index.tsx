@@ -18,8 +18,10 @@ export const TaskOverview: React.FC<TaskOverviewProps> = () => {
 
 	const config = {
 		chart: {
+			plotBorderWidth: 0,
+			plotShadow: false,
 			type: "pie",
-			spacingBottom: 0,
+			size: "50%",
 		},
 		title: {
 			text: null,
@@ -32,17 +34,19 @@ export const TaskOverview: React.FC<TaskOverviewProps> = () => {
 					enabled: false,
 				},
 				margin: [0, 0, 0, 0],
-				// spacingTop: 0,
-				// spacingLeft: 0,
+				spacingTop: 0,
+				spacingLeft: 90,
 				showInLegend: true,
 				// outerSize: "50%",
 				size: "30%",
+				floatingPoint: true,
+				verticalAlign: "top",
 			},
 		},
 		legend: {
 			layout: "vertical",
 			align: "right",
-			verticalAlign: "top",
+			verticalAlign: "middle",
 		},
 		series: [
 			{
@@ -92,30 +96,16 @@ export const TaskOverview: React.FC<TaskOverviewProps> = () => {
 			title: {
 				text: null,
 			},
-			labels: {
-				// overflow: "justify",
-			},
 		},
 		plotOptions: {
 			column: {
 				dataLabels: {
 					enabled: false,
 				},
-				size: "20%",
+				// size: "20%",
 				pointPadding: 0,
-				pointWidth: 25,
 			},
 		},
-		// legend: {
-		// 	// layout: "vertical",
-		// 	align: "right",
-		// 	verticalAlign: "top",
-		// 	x: -40,
-		// 	y: 80,
-		// 	floating: true,
-		// 	borderWidth: 1,
-		// 	shadow: true,
-		// },
 		credits: {
 			enabled: false,
 		},
@@ -142,7 +132,10 @@ export const TaskOverview: React.FC<TaskOverviewProps> = () => {
 	};
 
 	return (
-		<Card title={<ReactHighcharts config={config} />}>
+		<Card
+			title={<ReactHighcharts config={config} />}
+			style={{ padding: 0, height: "fit-content" }}
+		>
 			<ReactHighcharts config={colConfig} />
 		</Card>
 	);

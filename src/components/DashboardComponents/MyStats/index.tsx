@@ -14,6 +14,8 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 		chart: {
 			type: "pie",
 			spacingBottom: 0,
+			verticalAlign: "top",
+			align: "left",
 		},
 		title: {
 			text: null,
@@ -29,7 +31,19 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 				showInLegend: true,
 				// outerSize: "50%",
 				size: "70%",
+				// position: "fixed",
+				floating: true,
+				verticalAlign: "top",
+				align: "left",
 			},
+		},
+		legend: {
+			layout: "vertical",
+			align: "right",
+			verticalAlign: "middle",
+			// x: 0,
+			// y: 0,
+			// floating: true,
 		},
 		series: [
 			{
@@ -63,10 +77,10 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 
 	console.log(config);
 
-	useEffect(() => {
-		const container = document.querySelector(".highcharts-container");
-		container?.setAttribute("style", "height: 250px; position: fixed;");
-	});
+	// useEffect(() => {
+	// 	const container = document.querySelector(".highcharts-container");
+	// 	container?.setAttribute("style", "height: 250px; position: fixed;");
+	// });
 
 	return (
 		<div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
@@ -83,6 +97,7 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 					borderRadius: "10px",
 					boxShadow: "2px 2px 5px grey",
 					paddingTop: "24px",
+					position: "relative",
 				}}
 			>
 				<ReactHighcharts config={config} />

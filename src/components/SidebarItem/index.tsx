@@ -29,19 +29,6 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 				style={{ background: selected ? "#fff" : "transparent" }}
 			>
 				<Skeleton loading={loading} avatar active paragraph={{ rows: 0 }}>
-					{/* <span
-            className={styles.img}
-            style={{
-              backgroundColor: "red",
-              mask: `{url(${vector}) no-repeat center}`,
-            }}
-          >
-            {" "}
-          </span> */}
-					{/* <img
-						className={styles.img}
-						alt=""
-					/> */}
 					<span
 						className={styles.cardText}
 						style={{
