@@ -75,7 +75,7 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 		],
 	};
 
-	console.log(config);
+	// console.log(config);
 
 	// useEffect(() => {
 	// 	const container = document.querySelector(".highcharts-container");

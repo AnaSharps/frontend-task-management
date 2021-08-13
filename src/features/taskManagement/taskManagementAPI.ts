@@ -22,7 +22,6 @@ export function createTask(task: {
 	dueDate: string;
 	assignee: string;
 }) {
-	console.log(task);
 	return axios.post(
 		`${host}/api/createTask`,
 		{
@@ -33,7 +32,6 @@ export function createTask(task: {
 }
 
 export function getTaskStats(assignee: string) {
-	console.log(assignee);
 	return axios.post(
 		`${host}/api/taskStats`,
 		{
@@ -44,11 +42,24 @@ export function getTaskStats(assignee: string) {
 }
 
 export function getTodaysStats(assignee: string) {
-	console.log(assignee);
 	return axios.post(
 		`${host}/api/todaysStats`,
 		{
 			assignee,
+		},
+		{ withCredentials: true }
+	);
+}
+
+export function setTaskStat(
+	id: number,
+	status: "pending" | "inprogress" | "completed"
+) {
+	return axios.put(
+		`${host}/api/updateTaskStatus`,
+		{
+			id,
+			status,
 		},
 		{ withCredentials: true }
 	);

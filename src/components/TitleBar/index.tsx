@@ -28,7 +28,6 @@ export const TitleBar: React.FC<TitleBarProps> = ({
 	blue,
 	white,
 }) => {
-	console.log(title);
 	return (
 		<PageHeader
 			title={title}

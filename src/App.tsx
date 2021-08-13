@@ -22,13 +22,59 @@ import { MainContainer } from "./components/MAinContainer";
 import { Account } from "./screens/Account";
 import { Dashboard } from "./screens/Dashboard";
 import { TaskManagement } from "./screens/TaskMAnagement";
+import Pusher from "pusher-js";
+import * as PusherTypes from "pusher-js";
+import { message, Spin } from "antd";
+import { selectStatus } from "./features/loading";
+import { LoadingOutlined } from "@ant-design/icons";
+import Modal from "antd/lib/modal/Modal";
 
 function App() {
 	const mainContainerData = useAppSelector(selectMainContData);
+	const status = useAppSelector(selectStatus);
+	// const status = "processing";
+
+	const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+	useEffect(() => {
+		const pusher = new Pusher(
+			process.env.REACT_APP_PUSHER_APP_KEY
+				? process.env.REACT_APP_PUSHER_APP_KEY
+				: "",
+			{
+				cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
+			}
+		);
+
+		const channel = pusher.subscribe("my-channel");
+
+		channel.bind("NotificationEvent", (data: any) => {
+			if (data.success) message.success(data.message);
+			else if (!data.success) message.error(data.message);
+		});
+	}, []);
 
 	return (
 		<div className="App">
-			<div className="App-header">
+			{status === "processing" && (
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						background: "none",
+						width: "100%",
+						height: "100%",
+						position: "fixed",
+					}}
+				>
+					<Spin indicator={antIcon} />
+				</div>
+			)}
+			<div
+				className="App-header"
+				style={{ opacity: status === "processing" ? 0.6 : 1 }}
+			>
 				<Router>
 					<Switch>
 						<Route path="/app">

@@ -2,7 +2,7 @@ import { Divider } from "antd";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectAllTasks } from "../../../features/taskManagement";
-import { DisplayTasks } from "../../DisplayTasks";
+import { DisplayTasks } from "../DisplayTasks";
 import { SearchComponent } from "../SearchTasksComponent";
 import styles from "./style.module.css";
 

@@ -11,23 +11,13 @@ import {
 } from "../login";
 import { resetAdminChanged, setAdmin, setAdminChanged } from "../isAdmin";
 
-// export type AUTHSUCCESS = {
-// 	type: string;
-// 	payload:
-// };
-
 export const authorizationSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(setCurrUser(response.data.user));
-	// dispatch(changeLoading("passed"));
 	dispatch(getUsersInit());
-	// dispatch(resetAdminChanged());
-	// dispatch(resetLoginChanged());
 };
 
 export const authorizationFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(resetUser());
-	// dispatch(changeLoading("failed"));
-	// dispatch(resetLoginChanged());
 	// dispatch(setError(error));
 };
 
@@ -36,19 +26,11 @@ export const authorizationInit = (): AppThunk => async (dispatch) => {
 	try {
 		const response = await checkLoggedIn();
 		dispatch(authorizationSuccess(response));
-
-		// if (response) {
-		// 	try {
-		// 		const res = await checkAdmin(url);
-		// 	} catch (error) {
-		// 		dispatch(authorizationFailed(error));
-		// 	}
-		// }
 	} catch (error) {
-		console.log("hey?");
 		dispatch(authorizationFailed(error));
 	}
 };
+
 export const adminAuthSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(setCurrUser(response.data.user));
 	dispatch(getUsersInit());
@@ -59,8 +41,6 @@ export const adminAuthSuccess = (response: any): AppThunk => (dispatch) => {
 export const adminAuthFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("failed"));
 	dispatch(setAdmin(false));
-	dispatch(setAdminChanged());
-	// dispatch(resetLoginChanged());
 	// dispatch(setError(error));
 };
 

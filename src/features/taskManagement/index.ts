@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import dateFormat from "dateformat";
 import { AppThunk, RootState } from "../../app/store";
-import { TaskType } from "../dashboard";
+import { getTodaysTasksInit, TaskType } from "../dashboard";
 import { changeLoading } from "../loading";
 import {
 	createTask,
 	getTasks,
 	getTaskStats,
 	getTodaysStats,
+	setTaskStat,
 } from "./taskManagementAPI";
 
 export interface TaskState {
@@ -26,14 +27,14 @@ export interface TaskState {
 		overdue: TaskType[];
 	} | null;
 	taskStats:
+		| null
 		| {
 				date: string;
 				completedOnTime: number;
 				completedAfterDeadline: number;
 				overdue: number;
 				allDue: number;
-		  }[]
-		| null;
+		  }[];
 	todaysStats: {
 		total: number;
 		noActivity: number;
@@ -143,7 +144,7 @@ export const getTasksInit = (): AppThunk => async (dispatch, getState) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const getTaskStatsSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
-	console.log(response.data);
+	// console.log(response.data);
 	dispatch(setTaskStats(response.data.stats));
 };
 
@@ -159,11 +160,38 @@ export const getTaskStatsInit = (assignee: string): AppThunk => async (
 	dispatch(changeLoading("processing"));
 	dispatch(setTaskStats(null));
 	try {
-		console.log("hello");
+		// console.log("hello");
 		const response = await getTaskStats(assignee);
 		dispatch(getTaskStatsSuccess(response));
 	} catch (error) {
 		dispatch(getTaskStatsFailed(error));
+	}
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const setTaskStatusSuccess = (response: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("passed"));
+	console.log(response.data);
+	dispatch(getTasksInit());
+	dispatch(getTodaysTasksInit());
+};
+
+export const setTaskStatusFailed = (error: any): AppThunk => (dispatch) => {
+	dispatch(changeLoading("failed"));
+	// dispatch(setError(error));
+};
+
+export const setTaskStatusInit = (
+	id: number,
+	status: "inprogress" | "pending" | "completed"
+): AppThunk => async (dispatch) => {
+	dispatch(changeLoading("processing"));
+	try {
+		console.log("hello");
+		const response = await setTaskStat(id, status);
+		dispatch(setTaskStatusSuccess(response));
+	} catch (error) {
+		dispatch(setTaskStatusFailed(error));
 	}
 };
 

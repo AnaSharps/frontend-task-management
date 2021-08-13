@@ -81,7 +81,7 @@ export const getTodaysTasksInit = (): AppThunk => async (dispatch) => {
 };
 export const getMyStatsSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
-	console.log(response.data.stats);
+	// console.log(response.data.stats);
 	dispatch(setMyStats(response.data.stats));
 };
 

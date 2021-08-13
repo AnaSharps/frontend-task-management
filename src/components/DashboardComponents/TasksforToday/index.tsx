@@ -5,7 +5,7 @@ import { selectTodaysTasks } from "../../../features/dashboard";
 import dateFormat from "dateformat";
 import styles from "./style.module.css";
 import { statusColors } from "../../../app/constants";
-import { DisplayTasks } from "../../DisplayTasks";
+import { DisplayTasks } from "../../TaskManagementComponents/DisplayTasks";
 
 export interface TasksforTodayProps {}
 

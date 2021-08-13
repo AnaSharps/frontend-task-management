@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React, { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { validate } from "../../app/utils/validate";
@@ -29,16 +30,25 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 	showChangePage = true,
 }) => {
 	const [email, setEmail] = useState("");
-	const [emailErr, setEmailErr] = useState("");
+	const [emailErr, setEmailErr] = useState<string>("");
 
 	const status = useAppSelector(selectStatus);
 	const verifyEmail = useAppSelector(selectVerifySent);
 	const sentPassLink = useAppSelector(selectPassLink);
 
 	function handleChange(val: string) {
+		setEmail(val);
 		const valid = validate({ val, type: "email" });
 		setEmailErr(valid);
-		setEmail(val);
+	}
+
+	function handleSubmit() {
+		if (emailErr !== "") {
+			message.error("Enter a valid email address");
+		} else {
+			console.log(email);
+			onSubmit(email);
+		}
 	}
 
 	return (
@@ -53,6 +63,7 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 					className={styles.email}
 					name="email"
 					value={email}
+					defaultValue={email}
 					onChange={(e) => handleChange(e.target.value)}
 				/>
 			</LabelledFormComponent>
@@ -75,7 +86,7 @@ export const FormEmail: React.FC<FormEmailProps> = ({
 				type="primary"
 				text="Confirm Email"
 				loading={status === "processing"}
-				onClick={() => onSubmit(email)}
+				onClick={() => handleSubmit()}
 			/>
 			{showChangePage && (
 				<div className={styles.changeView}>
