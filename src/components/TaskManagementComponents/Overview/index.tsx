@@ -132,10 +132,7 @@ export const TaskOverview: React.FC<TaskOverviewProps> = () => {
 	};
 
 	return (
-		<Card
-			title={<ReactHighcharts config={config} />}
-			style={{ padding: 0, height: "fit-content" }}
-		>
+		<Card title={<ReactHighcharts config={config} />} className={styles.card}>
 			<ReactHighcharts config={colConfig} />
 		</Card>
 	);

@@ -58,29 +58,12 @@ export const TaskManagement: React.FC<TaskManagementProps> = () => {
 		dispatch(getTodaysStatsInit(currUser ? currUser.email : ""));
 	}, []);
 	return (
-		<Card
-			style={{
-				background: "#f1f1f1",
-				// height: "90%",
-				display: "flex",
-				flexDirection: "column",
-				borderRadius: "10px",
-				boxShadow: "2px 2px 5px grey",
-				// padding: "24px",
-			}}
-		>
+		<Card className={styles.card}>
 			<RadioTitle
 				selectedView={selectedView}
 				setSelectedView={setSelectedView}
 			/>
-			<div
-				style={{
-					backgroundColor: "white",
-					borderRadius: "10px",
-					flexGrow: 1,
-					padding: "16px",
-				}}
-			>
+			<div className={styles.taskContent}>
 				{selectedView === "List" && <TaskList />}
 				{selectedView === "Overview" && <TaskOverview />}
 			</div>

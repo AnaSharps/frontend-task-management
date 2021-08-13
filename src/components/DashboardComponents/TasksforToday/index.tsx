@@ -23,17 +23,7 @@ export const TasksforToday: React.FC<TasksforTodayProps> = () => {
 			<div style={{ fontWeight: "bolder", padding: "1em", paddingTop: 0 }}>
 				Tasks for Today
 			</div>
-			<Card
-				style={{
-					height: "100%",
-					width: "fit-content",
-					minWidth: "400px",
-					backgroundColor: "white",
-					borderRadius: "10px",
-					boxShadow: "2px 2px 5px grey",
-					overflowY: "scroll",
-				}}
-			>
+			<Card className={styles.card}>
 				<DisplayTasks tasks={todaysTasks} />
 			</Card>
 		</div>

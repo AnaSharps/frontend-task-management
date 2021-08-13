@@ -32,34 +32,10 @@ export const Account: React.FC<AccountProps> = () => {
 	}
 
 	return (
-		<div
-			className={styles.container}
-			key="account"
-			style={{ paddingTop: "24px" }}
-		>
-			<Avatar
-				size={100}
-				style={{
-					color: "black",
-					backgroundColor: "grey",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					borderRadius: "50px",
-				}}
-				icon={<UserOutlined />}
-			/>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					paddingLeft: "16px",
-					flexGrow: 1,
-				}}
-			>
-				<span style={{ fontWeight: "bolder", fontSize: 24 }}>
-					{currUser?.name}
-				</span>
+		<div className={styles.container} key="account">
+			<Avatar size={100} className={styles.avatar} icon={<UserOutlined />} />
+			<div className={styles.details}>
+				<span className={styles.taskLabel}>{currUser?.name}</span>
 				<CustomTag
 					icon={<CheckOutlined />}
 					text={currUser?.role === "ADMIN" ? "Admin" : "User"}
@@ -67,16 +43,12 @@ export const Account: React.FC<AccountProps> = () => {
 					fill
 				/>
 
-				<div style={{ display: "flex" }}>
-					<div style={{ fontWeight: "bolder", paddingRight: "5px" }}>
-						Email:{" "}
-					</div>{" "}
+				<div className={styles.detailsContainer}>
+					<div className={styles.detailsHeading}>Email: </div>{" "}
 					<div>{currUser?.email.toLowerCase()}</div>
 				</div>
-				<div style={{ display: "flex" }}>
-					<div style={{ fontWeight: "bolder", paddingRight: "5px" }}>
-						Created By:{" "}
-					</div>{" "}
+				<div className={styles.detailsContainer}>
+					<div className={styles.detailsHeading}>Created By: </div>{" "}
 					<div>{currUser?.createdBy.toLowerCase()}</div>
 				</div>
 			</div>

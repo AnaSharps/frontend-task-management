@@ -46,51 +46,16 @@ export const DisplayTasks: React.FC<DisplayTasksProps> = ({
 				const assignedBy = `---by ${task.assignorName} on ${assignedOnDate} at ${assignedOnTime}`;
 
 				return (
-					<div
-						style={{
-							display: "flex",
-							paddingBottom: "20px",
-							position: "relative",
-						}}
-						key={idx}
-					>
-						<span
-							style={{
-								fontWeight: "bolder",
-								fontSize: "18px",
-							}}
-						>
-							{dueTime}
-						</span>
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								paddingLeft: "15px",
-								flexGrow: 1,
-							}}
-						>
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "space-between",
-									position: "relative",
-								}}
-							>
-								<span
-									style={{
-										fontWeight: "bold",
-										fontSize: "14px",
-									}}
-								>
-									{task.taskName}
-								</span>
+					<div className={styles.itemContainer} key={idx}>
+						<span className={styles.time}>{dueTime}</span>
+						<div className={styles.detailsContainer}>
+							<div className={styles.headRow}>
+								<span className={styles.heading}>{task.taskName}</span>
 								{displayStatus && (
 									<span
+										className={styles.status}
 										style={{
-											fontStyle: "italic",
 											color: statusColors[status],
-											fontSize: "14px",
 										}}
 									>
 										{status}
@@ -125,25 +90,8 @@ export const DisplayTasks: React.FC<DisplayTasksProps> = ({
 									<MoreOutlined />
 								</div>
 							</div>
-							<span
-								style={{
-									fontSize: "12px",
-									paddingTop: "3px",
-									color: "grey",
-								}}
-							>
-								{task.taskDesc}
-							</span>
-							<span
-								style={{
-									fontSize: "12px",
-									fontStyle: "italic",
-									paddingTop: "3px",
-									color: "grey",
-								}}
-							>
-								{assignedBy}
-							</span>
+							<span className={styles.desc}>{task.taskDesc}</span>
+							<span className={styles.created}>{assignedBy}</span>
 						</div>
 					</div>
 				);

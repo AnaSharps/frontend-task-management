@@ -14,16 +14,7 @@ export const Options: React.FC<OptionsProps> = ({ taskId, status, style }) => {
 	const dispatch = useAppDispatch();
 
 	return (
-		<div
-			style={{
-				...style,
-				flexDirection: "column",
-				border: "1px solid grey",
-				zIndex: 99,
-				height: "fit-content",
-				background: "white",
-			}}
-		>
+		<div style={style} className={styles.container}>
 			{status !== "inprogress" && (
 				<div
 					className={styles.listItem}

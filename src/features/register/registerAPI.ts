@@ -18,3 +18,19 @@ export function addUser(email: string) {
 		}
 	);
 }
+
+export function signUser(credentials: {
+	username: string;
+	password: string;
+	token: string;
+}) {
+	return axios.post(
+		`${host}/register/signup`,
+		{
+			...credentials,
+		},
+		{
+			withCredentials: true,
+		}
+	);
+}

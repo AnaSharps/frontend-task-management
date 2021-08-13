@@ -23,8 +23,35 @@
 	display: flex;
 	align-items: center;
 	height: 40px;
+	padding-top: 24px;
 }
 
 .avatar {
-	margin-left: 8px !important;
+	color: black;
+	background-color: grey;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	padding-left: 16px;
+	flex-grow: 1;
+}
+
+.taskLabel {
+	font-weight: bolder;
+	font-size: 24;
+}
+
+.detailsContainer {
+	display: flex;
+}
+
+.detailsHeading {
+	font-weight: bolder;
+	padding-right: 5px;
 }

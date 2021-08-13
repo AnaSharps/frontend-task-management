@@ -32,7 +32,7 @@ export const AdminHome: React.FC<AdminHomeProps> = ({ ...props }) => {
 			setOnce(false);
 		} else {
 			if (currUser && currUser.role === "NORMAL" && loginStatus === "passed")
-				history.push("/home/loggedin");
+				history.push("/home/dashboard");
 			else if (!currUser && loginStatus === "passed")
 				history.push("/app/login");
 		}

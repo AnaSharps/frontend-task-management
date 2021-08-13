@@ -34,7 +34,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
 		<div style={{ height: "100%" }}>
 			<Layout className={styles.container}>
 				<Navbar navItems={navItems} />
-				<Layout style={{ width: "100%", height: "100%" }}>
+				<Layout className={styles.layout}>
 					<Header
 						title={title}
 						searchBar={searchBar}
@@ -44,7 +44,6 @@ export const MainContainer: React.FC<MainContainerProps> = ({
 					<Content className={styles.contentContainer}>{content}</Content>
 				</Layout>
 			</Layout>
-			{/* {loading && <LoadingSpinner visible={loading} />} */}
 		</div>
 	);
 };

@@ -13,6 +13,8 @@ import axios from "axios";
 import { host } from "../../app/constants";
 import { FormContainer } from "../../components/FormContainer";
 import { validate } from "../../app/utils/validate";
+import { signupUserInit } from "../../features/register";
+import { message } from "antd";
 
 export interface RegisterProps {}
 
@@ -21,8 +23,6 @@ export const Register: React.FC<RegisterProps> = () => {
 
 	const location = useLocation();
 	const verifyToken = location.search.split("=")[1];
-
-	const token = useAppSelector(selectToken);
 
 	const dispatch = useAppDispatch();
 
@@ -37,12 +37,6 @@ export const Register: React.FC<RegisterProps> = () => {
 	const validDetails = !usernameErr && !passErr && !confirmPassErr;
 
 	let history = useHistory();
-
-	useEffect(() => {
-		if (token) {
-			history.push("/home/loggedin");
-		}
-	}, [token]);
 
 	function handleChange(val: string, type: "name" | "pass" | "confirmPass") {
 		if (type === "name") {
@@ -62,26 +56,15 @@ export const Register: React.FC<RegisterProps> = () => {
 
 	function handleSubmit() {
 		if (validDetails) {
-			dispatch(changeLoading("processing"));
-			axios
-				.post(
-					`${host}/register/signup`,
-					{
-						username,
-						password: pass,
-						token: verifyToken,
-					},
-					{
-						withCredentials: true,
-					}
-				)
-				.then((res) => {
-					window.localStorage.setItem("token", res.data.token);
-					dispatch(setToken(res.data.token));
-					dispatch(changeLoading("passed"));
-					history.push("/home/loggedin");
+			dispatch(
+				signupUserInit({
+					username,
+					password: pass,
+					token: verifyToken,
 				})
-				.catch((err) => console.error(err));
+			);
+		} else {
+			message.error("Please fill the required details properly");
 		}
 	}
 

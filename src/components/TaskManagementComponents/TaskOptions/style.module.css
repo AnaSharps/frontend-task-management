@@ -7,3 +7,11 @@
 	background-color: #c1b6ca;
 	cursor: pointer;
 }
+
+.container {
+	flex-direction: column;
+	border: 1px solid grey;
+	z-index: 99;
+	height: fit-content;
+	background: white;
+}

@@ -94,16 +94,7 @@ export const TaskStats: React.FC<TaskStatsProps> = () => {
 	};
 
 	return (
-		<Card
-			style={{
-				height: "100%",
-				flexGrow: 1,
-				backgroundColor: "white",
-				borderRadius: "10px",
-				padding: "24px",
-				boxShadow: "2px 2px 5px grey",
-			}}
-		>
+		<Card className={styles.card}>
 			<span style={{ paddingRight: "5px" }}>Assignee</span>
 			<Dropdown
 				placeholder="Eg. John Doe"

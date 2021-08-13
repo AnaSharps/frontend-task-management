@@ -1,0 +1,20 @@
+.subContainer {
+	display: flex;
+	padding-bottom: 5px;
+	border-bottom: 2px solid grey;
+}
+
+.mainContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.total {
+	display: flex;
+	flex-grow: 1;
+}
+
+.search {
+	display: flex;
+	padding-top: 10px;
+}

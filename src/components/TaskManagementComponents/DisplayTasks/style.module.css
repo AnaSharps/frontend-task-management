@@ -1,0 +1,46 @@
+.itemContainer {
+	display: flex;
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.time {
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+.detailsContainer {
+	display: flex;
+	flex-direction: column;
+	padding-left: 15px;
+	flex-grow: 1;
+}
+
+.headRow {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+
+.heading {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.status {
+	font-style: italic;
+	font-size: 14px;
+}
+
+.desc {
+	font-size: 12px;
+	padding-top: 3px;
+	color: grey;
+}
+
+.created {
+	font-size: 12px;
+	font-style: italic;
+	padding-top: 3px;
+	color: grey;
+}

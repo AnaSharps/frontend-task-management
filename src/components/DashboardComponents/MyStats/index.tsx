@@ -87,19 +87,7 @@ export const MyStats: React.FC<MyStatsProps> = () => {
 			<div style={{ fontWeight: "bolder", padding: "1em", paddingTop: 0 }}>
 				My Performance
 			</div>
-			<Card
-				style={{
-					height: "100%",
-					width: "fit-content",
-					flexGrow: 1,
-					minWidth: "500px",
-					backgroundColor: "white",
-					borderRadius: "10px",
-					boxShadow: "2px 2px 5px grey",
-					paddingTop: "24px",
-					position: "relative",
-				}}
-			>
+			<Card className={styles.card}>
 				<ReactHighcharts config={config} />
 			</Card>
 		</div>

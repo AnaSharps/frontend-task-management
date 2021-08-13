@@ -52,19 +52,13 @@ export const {
 } = LoginStateSlice.actions;
 
 export const loginSuccess = (response: any): AppThunk => (dispatch) => {
-	// dispatch(changeLoading("passed"));
-	// if (response.data.admin) {
-	// dispatch(setAdmin(true));
-	// } else {
-	// dispatch(setAdmin(false));
-	// }
-	// dispatch(setAdminChanged());
-	// dispatch(setLoginChanged());
+	dispatch(changeLoading("passed"));
 	dispatch(setCurrUser(response.data.user));
 };
 
 export const loginFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(resetUser());
+	dispatch(changeLoading("failed"));
 	// dispatch(setError(error));
 };
 
@@ -82,7 +76,7 @@ export const loginInit = (credentials: {
 };
 
 export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
-	// dispatch(changeLoading("passed"));
+	dispatch(changeLoading("passed"));
 	dispatch(setLoginChanged());
 	dispatch(resetUser());
 	// dispatch(authorizationInit());
@@ -90,6 +84,7 @@ export const logoutSuccess = (response: any): AppThunk => (dispatch) => {
 
 export const logoutFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(setLoginStatus("passed"));
+	dispatch(changeLoading("failed"));
 	// dispatch(setError(error));
 };
 

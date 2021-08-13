@@ -14,86 +14,30 @@ export const TaskList: React.FC<TaskListProps> = () => {
 	return (
 		<>
 			<SearchComponent />
-			<div style={{ display: "flex", maxHeight: "450px" }}>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						boxShadow: "2px 3px 5px grey",
-						width: "25%",
-						padding: "16px",
-					}}
-				>
-					<div
-						style={{
-							fontSize: "18px",
-							fontStyle: "italic",
-							fontWeight: "bold",
-						}}
-					>
+			<div className={styles.container}>
+				<div className={styles.subContainer}>
+					<div className={styles.heading}>
 						To-Do ({allTasks ? allTasks.assigned.length : 0})
 					</div>
 					<Divider />
 					<DisplayTasks tasks={allTasks?.assigned} displayStatus={false} />
 				</div>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						boxShadow: "2px 3px 5px grey",
-						width: "25%",
-						padding: "16px",
-					}}
-				>
-					<div
-						style={{
-							fontSize: "18px",
-							fontStyle: "italic",
-							fontWeight: "bold",
-						}}
-					>
+				<div className={styles.subContainer}>
+					<div className={styles.heading}>
 						IN PROGRESS ({allTasks ? allTasks.inProgress.length : 0})
 					</div>
 					<Divider />
 					<DisplayTasks tasks={allTasks?.inProgress} displayStatus={false} />
 				</div>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						boxShadow: "2px 3px 5px grey",
-						width: "25%",
-						padding: "16px",
-					}}
-				>
-					<div
-						style={{
-							fontSize: "18px",
-							fontStyle: "italic",
-							fontWeight: "bold",
-						}}
-					>
+				<div className={styles.subContainer}>
+					<div className={styles.heading}>
 						COMPLETED ({allTasks ? allTasks.completed.length : 0})
 					</div>
 					<Divider />
 					<DisplayTasks tasks={allTasks?.completed} displayStatus={false} />
 				</div>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						boxShadow: "2px 3px 5px grey",
-						width: "25%",
-						padding: "16px",
-					}}
-				>
-					<div
-						style={{
-							fontSize: "18px",
-							fontStyle: "italic",
-							fontWeight: "bold",
-						}}
-					>
+				<div className={styles.subContainer}>
+					<div className={styles.heading}>
 						OVERDUE ({allTasks ? allTasks.overdue.length : 0})
 					</div>
 					<Divider />

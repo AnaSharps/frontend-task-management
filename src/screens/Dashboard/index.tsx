@@ -37,22 +37,8 @@ export const Dashboard: React.FC<DashboardProps> = () => {
 		dispatch(getTaskStatsInit(currUser ? currUser.email : ""));
 	}, []);
 	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-			}}
-		>
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "space-between",
-					height: "550px",
-					maxHeight: "550px",
-					paddingBottom: "20px",
-					marginRight: 0,
-				}}
-			>
+		<div className={styles.container}>
+			<div className={styles.upperContainer}>
 				<TasksforToday />
 				<MyStats />
 			</div>

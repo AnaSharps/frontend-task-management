@@ -24,20 +24,6 @@ export const ForgotPass: React.FC<ForgotPassProps> = () => {
 		dispatch(forgotPassInit({ email }));
 	}
 
-	// useEffect(() => {
-	// 	if (reset) {
-	// 		dispatch(changePassword({ pass, token }));
-	// 	}
-	// 	if (!once) {
-	// 		setOnce(true);
-	// 		dispatch(authorizationInit("/home/loggedin"));
-	// 	} else if (status === "passed") {
-	// 		history.push("/home/loggedin");
-	// 	} else if (status === "failed") {
-	// 		setDisplay(true);
-	// 	// }
-	// }, [status]);
-
 	return (
 		<FormContainer pageTitle="FORGOT PASSWORD">
 			<FormEmail

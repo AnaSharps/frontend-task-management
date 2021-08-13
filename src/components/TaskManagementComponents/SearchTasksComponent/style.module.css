@@ -1,0 +1,20 @@
+.container {
+	display: flex;
+	align-items: center;
+}
+
+.subContainer {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	width: 50%;
+}
+
+.userFilter {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	width: 25%;
+	justify-content: center;
+	align-items: center;
+}

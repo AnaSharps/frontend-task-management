@@ -14,6 +14,7 @@ import { selectUserList } from "../../../features/users";
 import { CustomButton } from "../../Button";
 import { CustomInput } from "../../CustomInput";
 import { Dropdown } from "../../Dropdown";
+import styles from "./style.module.css";
 
 export interface SearchComponentProps {}
 
@@ -40,13 +41,8 @@ export const SearchComponent: React.FC<SearchComponentProps> = () => {
 	}
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				alignItems: "center",
-			}}
-		>
-			<div style={{ display: "flex", padding: 0, margin: 0, width: "50%" }}>
+		<div className={styles.container}>
+			<div className={styles.subContainer}>
 				<CustomInput
 					placeholder="Search by title or description..."
 					value={search}
@@ -54,16 +50,7 @@ export const SearchComponent: React.FC<SearchComponentProps> = () => {
 				/>
 				<CustomButton text="" icon={<SearchOutlined />} onClick={searchTasks} />
 			</div>
-			<div
-				style={{
-					display: "flex",
-					padding: 0,
-					margin: 0,
-					width: "25%",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
+			<div className={styles.userFilter}>
 				<span style={{ paddingRight: "5px" }}>Assignor</span>
 				<Dropdown
 					placeholder="Eg. John Doe"
@@ -75,16 +62,7 @@ export const SearchComponent: React.FC<SearchComponentProps> = () => {
 					}}
 				/>
 			</div>
-			<div
-				style={{
-					display: "flex",
-					padding: 0,
-					margin: 0,
-					width: "25%",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
+			<div className={styles.userFilter}>
 				<span style={{ paddingRight: "5px" }}>Assignee</span>
 				<Dropdown
 					placeholder="Eg. John Doe"

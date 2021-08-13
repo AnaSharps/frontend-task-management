@@ -57,17 +57,7 @@ function App() {
 	return (
 		<div className="App">
 			{status === "processing" && (
-				<div
-					style={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						background: "none",
-						width: "100%",
-						height: "100%",
-						position: "fixed",
-					}}
-				>
+				<div className="App-Loading">
 					<Spin indicator={antIcon} />
 				</div>
 			)}

@@ -17,7 +17,6 @@ export const UnauthorisedForms: React.FC<UnauthorisedFormsProps> = ({
 	const currUser = useAppSelector(selectCurrUser);
 
 	const dispatch = useAppDispatch();
-	// const location = useLocation();
 	const history = useHistory();
 
 	useEffect(() => {

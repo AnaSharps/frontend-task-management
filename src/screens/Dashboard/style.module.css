@@ -1,0 +1,13 @@
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.upperContainer {
+	display: flex;
+	justify-content: space-between;
+	height: 550px;
+	max-height: 550px;
+	padding-bottom: 20px;
+	margin-right: 0;
+}

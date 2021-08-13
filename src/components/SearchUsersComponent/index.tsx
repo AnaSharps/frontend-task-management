@@ -1,5 +1,6 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import React from "react";
+import styles from "./style.module.css";
 import { useHistory } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { selectCurrUser } from "../../features/login";
@@ -40,15 +41,9 @@ export const SearchUsersComponent: React.FC = () => {
 	}
 
 	return (
-		<div style={{ display: "flex", flexDirection: "column" }}>
-			<div
-				style={{
-					display: "flex",
-					paddingBottom: "5px",
-					borderBottom: "2px solid grey",
-				}}
-			>
-				<span style={{ display: "flex", flexGrow: 1 }}>Total: {total}</span>
+		<div className={styles.mainContainer}>
+			<div className={styles.subContainer}>
+				<span className={styles.total}>Total: {total}</span>
 				{currUser?.role === "ADMIN" && (
 					<CustomButton
 						text="Add User"
@@ -57,8 +52,7 @@ export const SearchUsersComponent: React.FC = () => {
 					/>
 				)}
 			</div>
-			{/* <div style={{ backgroundColor: "black", height: }}/> */}
-			<div style={{ display: "flex", paddingTop: "10px" }}>
+			<div className={styles.search}>
 				<CustomInput
 					placeholder={"Search name or email..."}
 					type="text"
@@ -72,7 +66,6 @@ export const SearchUsersComponent: React.FC = () => {
 					prefixIcon={<SearchOutlined />}
 					isSecondary={false}
 					style={{ zIndex: 999, flexGrow: 1 }}
-					// style={{ alignSelf }}
 				/>
 			</div>
 		</div>

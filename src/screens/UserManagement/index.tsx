@@ -58,37 +58,17 @@ export const UserManagement: React.FC<UserManagementProps> = ({
 	}
 
 	return (
-		<div
-			style={{
-				alignItems: "center",
-				justifyContent: "center",
-				display: "flex",
-				flexDirection: "column",
-			}}
-		>
+		<div className={styles.userContainer}>
 			<CustomCard title={<SearchUsersComponent />}>
 				{users?.map((user, idx) => {
 					return (
-						<div
-							className={styles.userRow}
-							key={idx}
-							style={{
-								display: "flex",
-								padding: "10px",
-							}}
-						>
+						<div className={styles.userRow} key={idx}>
 							<Avatar
 								size={32}
-								style={{
-									backgroundColor: "#c1b6ca",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-									borderRadius: "16px",
-								}}
+								className={styles.avatar}
 								icon={<UserOutlined />}
 							/>
-							<div style={{ marginLeft: "16px", flexGrow: 1 }}>
+							<div className={styles.userDisplay}>
 								<div>{user.name.toUpperCase()}</div>
 								<div>{user.email.toLowerCase()}</div>
 							</div>

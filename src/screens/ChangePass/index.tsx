@@ -47,7 +47,7 @@ export const ChangePass: React.FC<ChangePassProps> = ({ forgot = false }) => {
 
 	useEffect(() => {
 		if (submitted && status === "passed") {
-			history.push("/home/loggedin");
+			history.push("/home/dashboard");
 		}
 	});
 
