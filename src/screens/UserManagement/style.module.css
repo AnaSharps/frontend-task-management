@@ -11,3 +11,9 @@
 .userRow:hover > * {
 	display: block;
 }
+
+.paginationContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

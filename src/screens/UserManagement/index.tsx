@@ -15,7 +15,7 @@ import { selectCurrUser } from "../../features/login";
 import { deleteUserInit } from "../../features/deregistration";
 import { CustomCard } from "../../components/Card";
 import { setMainContainerData } from "../../features/mainContainerData";
-import { Avatar, Select } from "antd";
+import { Avatar, Button, Pagination, Select } from "antd";
 import { DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import { SearchUsersComponent } from "../../components/SearchUsersComponent";
 
@@ -36,9 +36,10 @@ export const UserManagement: React.FC<UserManagementProps> = ({
 	const history = useHistory();
 	const location = useLocation();
 
-	function searchUsers(viewNext: number = 0) {
-		if (viewNext === 1) dispatch(setOffset(ofset + display));
-		else if (viewNext === -1) dispatch(setOffset(ofset - display));
+	const activePage = ofset / display + 1;
+
+	function searchUsers(page: number = 1) {
+		dispatch(setOffset((page - 1) * display));
 		dispatch(getUsersInit());
 	}
 
@@ -106,14 +107,19 @@ export const UserManagement: React.FC<UserManagementProps> = ({
 						</div>
 					);
 				})}
-				{ofset > 0 && (
-					<CustomButton text="Prev" onClick={() => searchUsers(-1)} />
-				)}
-				{total > ofset + display && (
-					<div style={{ justifySelf: "flex-end" }}>
-						<CustomButton text="Next" onClick={() => searchUsers(1)} />
-					</div>
-				)}
+				<div className={styles.paginationContainer}>
+					{
+						<Pagination
+							defaultCurrent={1}
+							total={total}
+							current={activePage}
+							pageSize={display}
+							onChange={(page) => {
+								searchUsers(page);
+							}}
+						/>
+					}
+				</div>
 			</CustomCard>
 		</div>
 	);
