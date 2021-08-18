@@ -1,4 +1,5 @@
 import { AppThunk } from "../../app/store";
+import { authorizationInit } from "../authorization";
 import { changeLoading } from "../loading";
 import { setCurrUser } from "../login";
 import { sendVerify } from "../verifyEmailSent";
@@ -51,11 +52,12 @@ export const addUserInit = (email: string): AppThunk => async (dispatch) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const signupUserSuccess = (response: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("passed"));
-	dispatch(setCurrUser(response.data.user));
+	dispatch(authorizationInit());
 };
 
 export const signupUserFailed = (error: any): AppThunk => (dispatch) => {
 	dispatch(changeLoading("failed"));
+	dispatch(authorizationInit());
 	// dispatch(setError(error));
 };
 
